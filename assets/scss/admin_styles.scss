@@ -1,0 +1,31 @@
+.container-fluid {
+  padding-left: 0;
+}
+
+.navigator {
+  height: 100vh;
+  min-height: 100vh;
+  padding-right: 0;
+  background-color: lighten(#007bff, 16%);
+}
+
+main {
+  background-color: darken(#fff, 10%);
+}
+
+.navigator ul li {
+  width: 100%;
+  border: 1px solid rgba(0,0,0,.125);
+  margin-bottom: -1px;
+}
+
+.navigator ul li a {
+  display: block;
+  padding: .75rem 1.25rem;
+  color: lighten(#0000ff, 45%);
+}
+
+.navigator ul li a:hover {
+  color: white;
+  text-decoration-line: none;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Admin panel{% endblock %}</title>
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800">
+    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin_styles.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+<div class="wrapper">
+    <header class="main-header pl-2 pt-3 pb-3 bg-primary">
+        <a href="" class="">
+            <span class="text-white"><b>Admin</b>LTE</span>
+        </a>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="navigator col-2">
+                <ul class="nav bd-sidenav">
+                    <li><a href="">File mine</a></li>
+                    <li><a href="">File mine</a></li>
+                    <li><a href="">File mine</a></li>
+                    <li><a href="">File mine</a></li>
+                    <li><a href="">File mine</a></li>
+                    <li><a href="">File mine</a></li>
+                    <li><a href="">File mine</a></li>
+                    <li><a href="">File mine</a></li>
+                </ul>
+            </div>
+            <main class="col-10">
+                {% block body %}{% endblock %}
+            </main>
+        </div>
+    </div>
+</div>
+{% block javascripts %}{% endblock %}
+</body>
+</html>
