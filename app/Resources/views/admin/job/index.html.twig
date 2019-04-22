@@ -1,0 +1,31 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block body %}
+    <h2 class="mt-3">Jobs</h2>
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name job</th>
+            <th scope="col">Company name</th>
+            <th scope="col">Is published</th>
+            <th scope="col">Salary</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for job in jobs %}
+            <tr>
+                <th scope="row">{{ job.id }}</th>
+                <td>{{ job.name }}</td>
+                <td>{{ job.company.name }}</td>
+                <td>{{ job.isPublished }}</td>
+                <td>{{ job.salary }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
