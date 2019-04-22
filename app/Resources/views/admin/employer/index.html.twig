@@ -1,0 +1,27 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block body %}
+    <h2 class="mt-3">Пользователи</h2>
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for employer in employers %}
+            <tr>
+                <th scope="row">{{ employer.id }}</th>
+                <td>{{ employer.user.username }}</td>
+                <td>{{ employer.user.email }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
