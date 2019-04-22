@@ -1,0 +1,35 @@
+version: '3'
+services:
+    jb-nginx:
+        build:
+            context: ./docker/development
+            dockerfile: nginx.docker
+        volumes:
+            - ./:/app
+        depends_on:
+            - jb-php-fpm
+        ports:
+            - "8080:80"
+    jb-php-fpm:
+        build:
+            context: ./docker/development
+            dockerfile: php-fpm.docker
+        volumes:
+            - ./:/app
+    jb-php-cli:
+        build:
+            context: ./docker/development
+            dockerfile: php-cli.docker
+        volumes:
+            - ./:/app
+        tty: true
+    jb-postgres:
+        image: postgres:11.2-alpine
+        volumes:
+            - ./var/docker/postgres:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: app
+            POSTGRES_PASSWORD: secret
+            POSTGRES_DB: app
+        ports:
+            - "54321:5432"

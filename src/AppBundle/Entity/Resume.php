@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ORM\Entity
  * @ORM\Table(name="resumes")
  */
 class Resume
@@ -37,10 +38,10 @@ class Resume
     private $salary;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Employee")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $employee;
 
     public function getId()
     {
@@ -87,13 +88,13 @@ class Resume
         $this->salary = $salary;
     }
 
-    public function getCompany()
+    public function getEmployee()
     {
-        return $this->user;
+        return $this->employee;
     }
 
-    public function setCompany(User $user)
+    public function setEmployee(Employee $employee)
     {
-        $this->user = $user;
+        $this->employee = $employee;
     }
 }

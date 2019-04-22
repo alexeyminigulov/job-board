@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ORM\Entity
  * @ORM\Table(name="companies")
  */
 class Company
@@ -27,10 +28,10 @@ class Company
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="Employer")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $employer;
 
     public function getId()
     {
@@ -57,13 +58,13 @@ class Company
         $this->description = $description;
     }
 
-    public function getGenus()
+    public function getEmployer()
     {
-        return $this->user;
+        return $this->employer;
     }
 
-    public function setGenus(User $user)
+    public function setEmployer(Employer $employer)
     {
-        $this->user = $user;
+        $this->employer = $employer;
     }
 }

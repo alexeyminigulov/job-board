@@ -29,6 +29,13 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    Symfony\Component\Security\Core\Encoder\UserPasswordEncoder: ~
+
+    AppBundle\Doctrine\HashPasswordListener:
+        arguments:
+            $passwordEncoder: '@Symfony\Component\Security\Core\Encoder\UserPasswordEncoder'
+        tags: ['doctrine.event_subscriber']
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:
