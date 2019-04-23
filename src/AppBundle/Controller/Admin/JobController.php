@@ -24,4 +24,15 @@ class JobController extends Controller
             'jobs' => $jobs,
         ]);
     }
+
+    /**
+     * @Route("/admin/jobs/{id}", name="admin_jobs_show")
+     * @Method("GET")
+     */
+    public function showAction(Job $job)
+    {
+        return $this->render('admin/job/show.html.twig', [
+            'job' => $job,
+        ]);
+    }
 }
