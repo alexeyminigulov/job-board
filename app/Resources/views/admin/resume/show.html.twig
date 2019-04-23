@@ -1,0 +1,39 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block body %}
+    <div class="card border-dark mb-3 mt-4">
+        <div class="card-header">
+            <span class="font-weight-bold">About resume</span>
+        </div>
+        <div class="card-body text-dark">
+            <div class="px-lg-5">
+                <div class="row mx-lg-n5 mb-2">
+                    <div class="col-3 py-3 px-lg-5 border bg-light">Resume name</div>
+                    <div class="col-9 py-3 px-lg-5 border">{{ resume.name }}</div>
+                </div>
+                <div class="row mx-lg-n5 mb-2">
+                    <div class="col-3 py-3 px-lg-5 border bg-light">Employee name</div>
+                    <div class="col-9 py-3 px-lg-5 border">{{ resume.employee.user.username }}</div>
+                </div>
+                <div class="row mx-lg-n5 mb-2">
+                    <div class="col-12 py-3 px-lg-5 border bg-light">Description</div>
+                    <div class="col-12 py-3 px-lg-5 border">{{ resume.description }}</div>
+                </div>
+                <div class="row mx-lg-n5 mb-2">
+                    <div class="col-3 py-3 px-lg-5 border bg-light">Is published</div>
+                    <div class="col-9 py-3 px-lg-5 border">{{ resume.isPublished }}</div>
+                </div>
+                <div class="row mx-lg-n5 mb-2">
+                    <div class="col-3 py-3 px-lg-5 border bg-light">Salary</div>
+                    <div class="col-9 py-3 px-lg-5 border">{{ resume.salary }}</div>
+                </div>
+            </div>
+
+            <a class="btn btn-primary btn-lg mt-3" href="#" role="button">Edit</a>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
