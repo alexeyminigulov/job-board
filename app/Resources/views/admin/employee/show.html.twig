@@ -3,21 +3,17 @@
 {% block body %}
     <div class="card border-dark mb-3 mt-4">
         <div class="card-header">
-            <span class="font-weight-bold">About company</span>
+            <span class="font-weight-bold">About employee</span>
         </div>
         <div class="card-body text-dark">
             <div class="px-lg-5">
                 <div class="row mx-lg-n5 mb-2">
-                    <div class="col-3 py-3 px-lg-5 border bg-light">Company name</div>
-                    <div class="col-9 py-3 px-lg-5 border">{{ company.name }}</div>
+                    <div class="col-3 py-3 px-lg-5 border bg-light">ID</div>
+                    <div class="col-9 py-3 px-lg-5 border">{{ employee.id }}</div>
                 </div>
                 <div class="row mx-lg-n5 mb-2">
                     <div class="col-3 py-3 px-lg-5 border bg-light">Employer name</div>
-                    <div class="col-9 py-3 px-lg-5 border">{{ company.employer.user.username }}</div>
-                </div>
-                <div class="row mx-lg-n5 mb-2">
-                    <div class="col-12 py-3 px-lg-5 border bg-light">Description</div>
-                    <div class="col-12 py-3 px-lg-5 border">{{ company.description }}</div>
+                    <div class="col-9 py-3 px-lg-5 border">{{ employee.user.username }}</div>
                 </div>
             </div>
 
