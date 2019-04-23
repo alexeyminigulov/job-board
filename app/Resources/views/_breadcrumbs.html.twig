@@ -1,4 +1,17 @@
-<ol class="breadcrumb bg-primary mt-2 mb-2 pl-0">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Library</li>
-</ol>
+{% if wo_breadcrumbs()|length %}
+    {%- spaceless -%}
+        <ol class="breadcrumb bg-primary mt-2 mb-2 pl-0">
+            {% for b in breadcrumbs %}
+                {% if b.url and not loop.last %}
+                    <li class="breadcrumb-item">
+                        <a href="{{ b.url }}">
+                            {{ b.text }}
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="breadcrumb-item active" aria-current="page">{{ b.text }}</li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+    {%- endspaceless -%}
+{% endif %}
