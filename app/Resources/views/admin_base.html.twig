@@ -17,10 +17,17 @@
 
 <body>
 <div class="wrapper">
-    <header class="main-header pl-2 pt-3 pb-3 bg-primary">
-        <a href="" class="">
-            <span class="text-white"><b>Admin</b>LTE</span>
-        </a>
+    <header class="main-header container-fluid bg-primary">
+        <div class="row align-items-center">
+            <div class="col-2">
+                <a href="" class="ml-3">
+                    <span class="text-white"><b>Admin</b>LTE</span>
+                </a>
+            </div>
+            <div class="col-10">
+                {% include '_breadcrumbs.html.twig' %}
+            </div>
+        </div>
     </header>
     <div class="container-fluid">
         <div class="row">
