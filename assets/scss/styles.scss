@@ -32,3 +32,12 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.clusters-value_selected {
+  background-color: #b3d7ff;
+  border-radius: 4px;
+}
+
+.clusters-value_selected:hover {
+  background-color: darken(#b3d7ff, 15%);
+}
