@@ -17,7 +17,7 @@
         {% for resume in resumes %}
             <tr>
                 <th scope="row">{{ resume.id }}</th>
-                <td>{{ resume.name }}</td>
+                <td><a href="{{ path('admin_resumes_show', {'id': resume.id}) }}">{{ resume.name }}</a></td>
                 <td>{{ resume.employee.user.username }}</td>
                 <td>{{ resume.isPublished }}</td>
                 <td>{{ resume.salary }}</td>

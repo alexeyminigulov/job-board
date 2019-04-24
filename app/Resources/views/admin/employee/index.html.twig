@@ -15,7 +15,7 @@
         {% for employee in employees %}
             <tr>
                 <th scope="row">{{ employee.id }}</th>
-                <td>{{ employee.user.username }}</td>
+                <td><a href="{{ path('admin_employees_show', {'id': employee.id}) }}">{{ employee.user.username }}</a></td>
                 <td>{{ employee.user.email }}</td>
             </tr>
         {% endfor %}

@@ -17,7 +17,7 @@
         {% for job in jobs %}
             <tr>
                 <th scope="row">{{ job.id }}</th>
-                <td>{{ job.name }}</td>
+                <td><a href="{{ path('admin_jobs_show', {'id': job.id}) }}">{{ job.name }}</a></td>
                 <td>{{ job.company.name }}</td>
                 <td>{{ job.isPublished }}</td>
                 <td>{{ job.salary }}</td>
