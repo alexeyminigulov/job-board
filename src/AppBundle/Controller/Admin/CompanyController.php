@@ -24,7 +24,6 @@ class CompanyController extends Controller
     public function indexAction()
     {
         $this->breadcrumbs
-            ->addItem('Home', $this->get('router')->generate('admin_homepage'))
             ->addItem('Companies');
 
         $companies = $this->getDoctrine()
@@ -43,7 +42,6 @@ class CompanyController extends Controller
     public function showAction(Company $company)
     {
         $this->breadcrumbs
-            ->addItem('Home', $this->get('router')->generate('admin_homepage'))
             ->addItem('Companies', $this->get('router')->generate('admin_companies'))
             ->addItem($company->getName());
 

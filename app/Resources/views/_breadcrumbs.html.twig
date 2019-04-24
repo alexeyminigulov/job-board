@@ -1,6 +1,9 @@
 {% if wo_breadcrumbs()|length %}
     {%- spaceless -%}
         <ol class="breadcrumb bg-primary mt-2 mb-2 pl-0">
+            <li class="breadcrumb-item">
+                <a href="{{ path('admin_homepage') }}">Home</a>
+            </li>
             {% for b in breadcrumbs %}
                 {% if b.url and not loop.last %}
                     <li class="breadcrumb-item">
