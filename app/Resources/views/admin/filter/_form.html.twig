@@ -1,8 +1,15 @@
-{{ form_start(filterForm) }}
-    {{ form_row(filterForm.name) }}
-    {{ form_row(filterForm.nameField) }}
-    {{ form_row(filterForm.isPublished) }}
-    {{ form_row(filterForm.isFolded) }}
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.nameField) }}
+    {{ form_row(form.isPublished) }}
+    {{ form_row(form.isFolded) }}
 
-<button type="submit" class="btn btn-primary" formnovalidate>Save</button>
-{{ form_end(filterForm) }}
+    <h3>Options</h3>
+    <ul class="options" data-prototype="{{ form_widget(form.options.vars.prototype)|e('html_attr') }}">
+        {% for option in form.options %}
+            <li>{{ form_row(option.vars.prototype.name) }}</li>
+        {% endfor %}
+    </ul>
+    <button type="submit" class="btn btn-primary" formnovalidate>Save</button>
+
+{{ form_end(form) }}

@@ -71,7 +71,7 @@ class FilterController extends Controller
         }
 
         return $this->render('admin/filter/create.html.twig', [
-            'filterForm' => $form->createView()
+            'form' => $form->createView()
         ]);
     }
 }

@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -36,6 +38,17 @@ class Filter
      * @ORM\Column(type="boolean")
      */
     private $isFolded;
+
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Option", mappedBy="filter", cascade={"persist", "remove"})
+     */
+    private $options;
+
+    public function __construct()
+    {
+        $this->options = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -80,5 +93,21 @@ class Filter
     public function setIsFolded($isFolded): void
     {
         $this->isFolded = $isFolded;
+    }
+
+    public function getOptions(): Collection
+    {
+        return $this->options;
+    }
+
+    public function addOption(Option $option)
+    {
+        $option->setFilter($this);
+        $this->options->add($option);
+    }
+
+    public function removeOption(Option $option)
+    {
+        $this->options->removeElement($option);
     }
 }
