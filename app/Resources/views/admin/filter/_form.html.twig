@@ -1,0 +1,8 @@
+{{ form_start(filterForm) }}
+    {{ form_row(filterForm.name) }}
+    {{ form_row(filterForm.nameField) }}
+    {{ form_row(filterForm.isPublished) }}
+    {{ form_row(filterForm.isFolded) }}
+
+<button type="submit" class="btn btn-primary" formnovalidate>Save</button>
+{{ form_end(filterForm) }}

@@ -1,0 +1,30 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block body %}
+    <div class="mt-3">
+        <a class="btn btn-success" href="{{ path('admin_filters_create') }}">Create filter</a>
+    </div>
+
+    <h2 class="mt-3">Jobs</h2>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Field name</th>
+                <th scope="col">Is published</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for filter in filters %}
+            <tr>
+                <th scope="row">{{ filter.id }}</th>
+                <td><a href="{{ path('admin_filters_show', {'id': filter.id}) }}">{{ filter.name }}</a></td>
+                <td>{{ filter.nameField }}</td>
+                <td>{{ filter.isPublished }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

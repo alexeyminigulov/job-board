@@ -1,0 +1,32 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block body %}
+    <div class="card border-dark mb-3 mt-4">
+        <div class="card-header">
+            <span class="font-weight-bold">About filter</span>
+        </div>
+        <div class="card-body text-dark">
+            <div class="px-lg-5">
+                <div class="row mx-lg-n5 mb-2">
+                    <div class="col-3 py-3 px-lg-5 border bg-light">Filter name</div>
+                    <div class="col-9 py-3 px-lg-5 border">{{ filter.name }}</div>
+                </div>
+                <div class="row mx-lg-n5 mb-2">
+                    <div class="col-3 py-3 px-lg-5 border bg-light">Field name</div>
+                    <div class="col-9 py-3 px-lg-5 border">{{ filter.nameField }}</div>
+                </div>
+                <div class="row mx-lg-n5 mb-2">
+                    <div class="col-3 py-3 px-lg-5 border bg-light">Is published</div>
+                    <div class="col-9 py-3 px-lg-5 border">{{ filter.isPublished }}</div>
+                </div>
+                <div class="row mx-lg-n5 mb-2">
+                    <div class="col-3 py-3 px-lg-5 border bg-light">Folded</div>
+                    <div class="col-9 py-3 px-lg-5 border">{{ filter.isFolded }}</div>
+                </div>
+            </div>
+
+            <a class="btn btn-primary btn-lg mt-3" href="#" role="button">Edit</a>
+        </div>
+    </div>
+
+{% endblock %}

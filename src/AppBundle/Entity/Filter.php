@@ -35,7 +35,7 @@ class Filter
     /**
      * @ORM\Column(type="boolean")
      */
-    private $folded;
+    private $isFolded;
 
     public function getId()
     {
@@ -72,13 +72,13 @@ class Filter
         $this->isPublished = $isPublished;
     }
 
-    public function getFolded()
+    public function getIsFolded()
     {
-        return $this->folded;
+        return $this->isFolded;
     }
 
-    public function setFolded($folded): void
+    public function setIsFolded($isFolded): void
     {
-        $this->folded = $folded;
+        $this->isFolded = $isFolded;
     }
 }
