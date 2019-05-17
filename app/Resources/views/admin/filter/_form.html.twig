@@ -6,9 +6,7 @@
 
     <h3>Options</h3>
     <ul class="options" data-prototype="{{ form_widget(form.options.vars.prototype)|e('html_attr') }}">
-        {% for option in form.options %}
-            <li>{{ form_row(option.vars.prototype.name) }}</li>
-        {% endfor %}
+        {{ form_row(form.options) }}
     </ul>
     <button type="submit" class="btn btn-primary" formnovalidate>Save</button>
 

@@ -30,7 +30,12 @@ class FilterFormType extends AbstractType
             ])
             ->add('options', CollectionType::class, [
                 'entry_type' => OptionType::class,
-                'entry_options' => ['label' => false],
+                'entry_options' => [
+                    'label' => false,
+                    'attr' => ['class' => 'option-box'],
+                ],
+                'by_reference' => false,
+                'allow_delete' =>true,
                 'allow_add' => true,
                 'label'  => false,
             ]);

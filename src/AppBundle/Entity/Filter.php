@@ -41,7 +41,13 @@ class Filter
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Option", mappedBy="filter", cascade={"persist", "remove"})
+     * @ORM\OneToMany(
+     *     targetEntity="Option",
+     *     mappedBy="filter",
+     *     fetch="EXTRA_LAZY",
+     *     cascade={"persist", "remove"},
+     *     orphanRemoval=true
+     *     )
      */
     private $options;
 
@@ -108,6 +114,9 @@ class Filter
 
     public function removeOption(Option $option)
     {
+        if (!$this->options->contains($option)) {
+            return;
+        }
         $this->options->removeElement($option);
     }
 }

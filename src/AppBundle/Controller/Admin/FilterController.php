@@ -74,4 +74,30 @@ class FilterController extends Controller
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/filters/update/{id}", name="filters_update", requirements={"id"="\d+"})
+     * @Method("GET")
+     */
+    public function updateAction(Filter $filter, Request $request)
+    {
+        $form = $this->createForm(FilterFormType::class, $filter);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $filter = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($filter);
+            $em->flush();
+
+            $this->addFlash('success', 'Filter updated!');
+
+            return $this->redirectToRoute('admin_filters');
+        }
+
+        return $this->render('admin/filter/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }
