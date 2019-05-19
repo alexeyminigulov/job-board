@@ -100,4 +100,19 @@ class FilterController extends Controller
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/filters/delete/{id}", name="filters_delete", requirements={"id"="\d+"})
+     * @Method("GET")
+     */
+    public function deleteAction(Filter $filter)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($filter);
+        $em->flush();
+
+        $this->addFlash('success', 'Filter deleted!');
+
+        return $this->redirectToRoute('admin_filters');
+    }
 }

@@ -14,6 +14,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Field name</th>
                 <th scope="col">Is published</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +24,10 @@
                 <td><a href="{{ path('admin_filters_show', {'id': filter.id}) }}">{{ filter.name }}</a></td>
                 <td>{{ filter.nameField }}</td>
                 <td>{{ filter.isPublished }}</td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('admin_filters_update', {'id': filter.id}) }}">Update</a>
+                    <a class="btn btn-danger" href="{{ path('admin_filters_delete', {'id': filter.id}) }}">Remove</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
