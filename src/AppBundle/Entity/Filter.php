@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -20,11 +21,15 @@ class Filter
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(type="string")
      */
     private $name;
 
     /**
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(type="string")
      */
     private $nameField;
@@ -101,6 +106,9 @@ class Filter
         $this->isFolded = $isFolded;
     }
 
+    /**
+     * @return ArrayCollection|User[]
+     */
     public function getOptions(): Collection
     {
         return $this->options;
