@@ -117,6 +117,12 @@ class Filter
 
     public function addOption(Option $option)
     {
+        if ($this->options->contains($option)
+            || $this->options->exists(function (int $key, Option $item) use ($option) {
+                return $option->getName() === $item->getName();
+            })) {
+            return;
+        }
         $option->setFilter($this);
         $this->options->add($option);
     }
