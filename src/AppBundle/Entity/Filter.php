@@ -52,7 +52,8 @@ class Filter
      *     fetch="EXTRA_LAZY",
      *     cascade={"persist", "remove"},
      *     orphanRemoval=true
-     *     )
+     * )
+     * @Assert\Valid()
      */
     private $options;
 

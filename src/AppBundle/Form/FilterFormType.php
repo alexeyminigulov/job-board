@@ -40,6 +40,7 @@ class FilterFormType extends AbstractType
                 'allow_add' => true,
                 'label'  => false,
                 'constraints' => new NotBlank(['message' => 'Options don\'t have to be empty']),
+                'error_bubbling' => false,
             ]);
         ;
     }

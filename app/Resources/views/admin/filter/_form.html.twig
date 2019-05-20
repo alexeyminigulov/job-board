@@ -1,14 +1,31 @@
 {{ form_start(form) }}
+    {{ form_errors(form) }}
     {{ form_row(form.name) }}
     {{ form_row(form.nameField) }}
     {{ form_row(form.isPublished) }}
     {{ form_row(form.isFolded) }}
 
     <h3>Options</h3>
-    <ul class="options" data-prototype="{{ form_widget(form.options.vars.prototype)|e('html_attr') }}">
-        {{ form_errors(form) }}
-        {{ form_row(form.options) }}
-    </ul>
+    {{ form_errors(form.options) }}
+    <div class="row options-wrapper"
+         data-prototype="{{ form_widget(form.options.vars.prototype)|e('html_attr') }}"
+         data-index="{{ form.options|length }}"
+    >
+        {% for option in form.options %}
+            <div class="col-xs-4 option-item">
+                <a href="#" class="remove-item">
+                    <span class="fa fa-close"></span>
+                </a>
+                {{ form_errors(option) }}
+                {{ form_row(option.name) }}
+            </div>
+        {% endfor %}
+        <a href="#" class="item-add">
+            <span class="fa-fa-plus-circle"></span>
+            Add another option
+        </a>
+    </div>
+    {{ form_widget(form.options) }}
     <button type="submit" class="btn btn-primary" formnovalidate>Save</button>
 
 {{ form_end(form) }}
