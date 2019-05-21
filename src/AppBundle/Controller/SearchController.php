@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Filter;
+use AppBundle\Widgets\SearchWidget\SearchWidget;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,6 +15,15 @@ class SearchController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('search/index.html.twig');
+        /** @var Filter[] $filters */
+        $filters = $this->getDoctrine()
+            ->getRepository('AppBundle:Filter')
+            ->findAll();
+
+        $searchWidget = new SearchWidget($filters, $request);
+
+        return $this->render('search/index.html.twig', [
+            'searchWidget' => $searchWidget,
+        ]);
     }
 }
