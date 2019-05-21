@@ -30,7 +30,7 @@ class Option
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Filter")
+     * @ORM\ManyToOne(targetEntity="Filter", inversedBy="options")
      * @ORM\JoinColumn(nullable=false)
      */
     private $filter;

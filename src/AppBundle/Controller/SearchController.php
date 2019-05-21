@@ -22,8 +22,14 @@ class SearchController extends Controller
 
         $searchWidget = new SearchWidget($filters, $request);
 
+        $em = $this->getDoctrine()->getManager();
+
+        $jobs = $em->getRepository('AppBundle:Job')
+            ->findByParams($searchWidget->getQueryParams());
+
         return $this->render('search/index.html.twig', [
             'searchWidget' => $searchWidget,
+            'jobs' => $jobs,
         ]);
     }
 }

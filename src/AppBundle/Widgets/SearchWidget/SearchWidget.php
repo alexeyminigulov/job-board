@@ -25,7 +25,7 @@ class SearchWidget
     public function __construct(array $filters, Request $request)
     {
         $this->filters = $filters;
-        $this->queryParams = $this->getQueryParams($request);
+        $this->queryParams = $this->setQueryParams($request);
 
         $this->setFilterWrap();
     }
@@ -33,6 +33,11 @@ class SearchWidget
     public function getFilterWrap()
     {
         return $this->filterWrap;
+    }
+
+    public function getQueryParams()
+    {
+        return $this->queryParams;
     }
 
     private function setFilterWrap()
@@ -44,7 +49,7 @@ class SearchWidget
         }
     }
 
-    private function getQueryParams(Request $request)
+    private function setQueryParams(Request $request)
     {
         $params = [];
         foreach ($this->filters as $filter) {

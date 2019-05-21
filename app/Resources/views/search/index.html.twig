@@ -1,23 +1,5 @@
-{% import _self as filterMacro %}
-
-{% macro printFilter(key, filterWrap) %}
-    <div class="card">
-        <div class="card-header">
-            <a class="text-dark" data-toggle="collapse" href="#multiCollapseExample{{ key }}" role="button" aria-expanded="false" aria-controls="multiCollapseExample{{ key }}">
-                {{ filterWrap.name }}
-            </a>
-        </div>
-        <div class="collapse multi-collapse" id="multiCollapseExample{{ key }}">
-            <div class="card-body pt-0 pb-3">
-                {% for option in filterWrap.options %}
-                    <p class="m-1 list-group-item-action {{ option.isSelected ? 'clusters-value_selected' : '' }}">
-                        <a class="text-muted" href="?{{ option.query }}">{{ option.name }}</a>
-                    </p>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-{% endmacro %}
+{% import "search/macroFilter.twig" as macroFilter %}
+{% import "search/macroJob.twig" as macroJob %}
 
 {% extends 'base.html.twig' %}
 
@@ -26,12 +8,15 @@
         <div class="row">
             <div class="col-3">
                 {% for key, filterWrap in searchWidget.filterWrap %}
-                    {{ filterMacro.printFilter(key, filterWrap) }}
+                    {{ macroFilter.print(key, filterWrap) }}
                 {% endfor %}
             </div>
 
             <div class="col">
                 <ul class="list-group">
+                    {% for job in jobs %}
+                        {{ macroJob.print(job) }}
+                    {% endfor %}
                     <li class="list-group-item card pb-4">
                         <div class="card-body p-0">
                             <div class="card-title">
