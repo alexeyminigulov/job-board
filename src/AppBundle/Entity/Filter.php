@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Filter
 {
     const TYPE_INT = 'integer';
-    const TYPE_BOOL = 'boolean';
     const TYPE_TEXT = 'text';
 
     /**
@@ -157,7 +156,7 @@ class Filter
      */
     public function setType($type): void
     {
-        if (!in_array($type, [self::TYPE_TEXT, self::TYPE_BOOL, self::TYPE_INT])) {
+        if (!in_array($type, [self::TYPE_TEXT, self::TYPE_INT])) {
             throw new \Exception('Type do not embedded');
         }
         $this->type = $type;

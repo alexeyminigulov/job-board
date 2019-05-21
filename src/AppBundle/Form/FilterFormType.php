@@ -33,7 +33,6 @@ class FilterFormType extends AbstractType
                 'choices' => [
                     'text' => Filter::TYPE_TEXT,
                     'number' => Filter::TYPE_INT,
-                    'boolean' => Filter::TYPE_BOOL,
                 ]
             ])
             ->add('options', CollectionType::class, [

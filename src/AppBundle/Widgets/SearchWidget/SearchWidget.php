@@ -56,7 +56,7 @@ class SearchWidget
 
             $name = $filter->getNameField();
             if ($value = $request->get($name)) {
-                $params[] = new QueryParam($name, $value);
+                $params[] = new QueryParam($name, $value, $filter->getType());
             }
         }
         return $params;

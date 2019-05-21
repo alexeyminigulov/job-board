@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Filter;
 use AppBundle\Entity\Job;
 use AppBundle\Widgets\SearchWidget\QueryParam;
 use Doctrine\ORM\EntityRepository;
@@ -17,9 +18,16 @@ class JobRepository extends EntityRepository
         $queryBuilder = $this->createQueryBuilder('job');
 
         foreach ($queryParams as $param) {
-            $queryBuilder = $queryBuilder
-                ->andWhere('job.' .$param->getName(). ' = :' .$param->getName())
-                ->setParameter($param->getName(), $param->getValue());
+            if ($param->getType() === Filter::TYPE_INT) {
+                $queryBuilder = $queryBuilder
+                    ->andWhere('job.' .$param->getName(). ' > :' .$param->getName())
+                    ->setParameter($param->getName(), $param->getValue());
+            }
+            else {
+                $queryBuilder = $queryBuilder
+                    ->andWhere('job.' .$param->getName(). ' = :' .$param->getName())
+                    ->setParameter($param->getName(), $param->getValue());
+            }
         }
 
         return $queryBuilder
