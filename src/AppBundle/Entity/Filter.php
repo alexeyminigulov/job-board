@@ -13,6 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Filter
 {
+    const TYPE_INT = 'integer';
+    const TYPE_BOOL = 'boolean';
+    const TYPE_TEXT = 'text';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -56,6 +60,13 @@ class Filter
      * @Assert\Valid()
      */
     private $options;
+
+    /**
+     * @Assert\NotBlank()
+     *
+     * @ORM\Column(type="string")
+     */
+    private $type = self::TYPE_TEXT;
 
     public function __construct()
     {
@@ -133,5 +144,22 @@ class Filter
             return;
         }
         $this->options->removeElement($option);
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param $type
+     * @throws \Exception
+     */
+    public function setType($type): void
+    {
+        if (!in_array($type, [self::TYPE_TEXT, self::TYPE_BOOL, self::TYPE_INT])) {
+            throw new \Exception('Type do not embedded');
+        }
+        $this->type = $type;
     }
 }
