@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SearchWidget
 {
+    const JOB_TITLE = 'title';
+
     /**
      * @var Filter[]
      */
@@ -59,6 +61,10 @@ class SearchWidget
                 $params[] = new QueryParam($name, $value, $filter->getType());
             }
         }
+        if ($value = $request->get(self::JOB_TITLE)) {
+            $params[] = new QueryParam(self::JOB_TITLE, $value, Filter::TYPE_TEXT);
+        }
+
         return $params;
     }
 }

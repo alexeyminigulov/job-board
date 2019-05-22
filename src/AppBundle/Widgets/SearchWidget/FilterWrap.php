@@ -63,7 +63,7 @@ class FilterWrap
 
         foreach ($this->queryParams as $param) {
 
-            if ($param->getName() !== $this->getNameField()) {
+            if ($param->getName() !== $this->getNameField() || $param->getName() === SearchWidget::JOB_TITLE) {
                 $query .= '&'. $param->getName() .'='. $param->getValue();
             }
         }
