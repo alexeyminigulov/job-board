@@ -56,9 +56,9 @@ class SearchWidget
         $params = [];
         foreach ($this->filters as $filter) {
 
-            $name = $filter->getNameField();
-            if ($value = $request->get($name)) {
-                $params[] = new QueryParam($name, $value, $filter->getType());
+            $nameField = $filter->getNameField();
+            if ($value = $request->get($nameField)) {
+                $params[] = new QueryParam($nameField, $value, $filter->getType());
             }
         }
         if ($value = $request->get(self::JOB_TITLE)) {

@@ -27,7 +27,8 @@
                     <div class="col-3 py-3 px-lg-5 border bg-light">Options</div>
                     <ul class="col-9 list-group">
                         {% for option in filter.options %}
-                            <li class="list-group-item">{{ option.name }}</li>
+                            <li class="list-group-item">{{ option.label }}</li>
+                            <li class="list-group-item">{{ option.value }}</li>
                         {% endfor %}
                     </ul>
                 </div>

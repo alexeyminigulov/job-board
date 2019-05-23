@@ -129,7 +129,7 @@ class Filter
     {
         if ($this->options->contains($option)
             || $this->options->exists(function (int $key, Option $item) use ($option) {
-                return $option->getName() === $item->getName();
+                return $option->getLabel() === $item->getLabel();
             })) {
             return;
         }

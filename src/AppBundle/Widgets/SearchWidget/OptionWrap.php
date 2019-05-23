@@ -22,9 +22,9 @@ class OptionWrap
         $this->isSelected = $isSelected;
     }
 
-    public function getName()
+    public function getLabel()
     {
-        return $this->option->getName();
+        return $this->option->getLabel();
     }
 
     public function getQuery()

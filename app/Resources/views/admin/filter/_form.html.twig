@@ -18,7 +18,8 @@
                     <span class="fa fa-close"></span>
                 </a>
                 {{ form_errors(option) }}
-                {{ form_row(option.name) }}
+                {{ form_row(option.label) }}
+                {{ form_row(option.value) }}
             </div>
         {% endfor %}
         <a href="#" class="item-add">

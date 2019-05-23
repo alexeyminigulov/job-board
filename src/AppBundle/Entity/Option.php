@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity
  * @ORM\Table(name="options")
  * @UniqueEntity(
- *  fields={"name", "filter"},
+ *  fields={"label", "filter"},
  *  message="Name should be unique."
  * )
  */
@@ -24,10 +24,16 @@ class Option
     private $id;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Label should not be blank")
      * @ORM\Column(type="string")
      */
-    private $name;
+    private $label;
+
+    /**
+     * @Assert\NotBlank(message="Value should not be blank")
+     * @ORM\Column(type="string")
+     */
+    private $value;
 
     /**
      * @ORM\ManyToOne(targetEntity="Filter", inversedBy="options")
@@ -40,14 +46,24 @@ class Option
         return $this->id;
     }
 
-    public function getName()
+    public function getLabel()
     {
-        return $this->name;
+        return $this->label;
     }
 
-    public function setName($name): void
+    public function setLabel(string $label): void
     {
-        $this->name = $name;
+        $this->label = $label;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    public function setValue(string $value): void
+    {
+        $this->value = $value;
     }
 
     public function getFilter()

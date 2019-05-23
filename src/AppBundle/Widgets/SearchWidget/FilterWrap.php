@@ -59,7 +59,7 @@ class FilterWrap
 
     private function getQuery(Option $option): string
     {
-        $query = '&'. $this->filter->getNameField() .'='. $option->getName();
+        $query = '&'. $this->filter->getNameField() .'='. $option->getValue();
 
         foreach ($this->queryParams as $param) {
 
@@ -75,7 +75,7 @@ class FilterWrap
     {
         foreach ($this->queryParams as $param) {
 
-            if ($param->getName() === $this->filter->getNameField() && $param->getValue() === $option->getName()) {
+            if ($param->getName() === $this->filter->getNameField() && $param->getValue() === $option->getValue()) {
                 return true;
             }
         }
