@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SearchWidget
 {
-    const JOB_TITLE = 'title';
+    const JOB_TITLE = 'name';
 
     /**
      * @var Filter[]
