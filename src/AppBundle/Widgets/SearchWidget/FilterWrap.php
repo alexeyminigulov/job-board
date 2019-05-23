@@ -22,10 +22,16 @@ class FilterWrap
      */
     private $queryParams = [];
 
-    public function __construct(Filter $filter, array $queryParams)
+    /**
+     * @var string
+     */
+    private $pathInfo;
+
+    public function __construct(Filter $filter, array $queryParams, string $pathInfo)
     {
         $this->filter = $filter;
         $this->queryParams = $queryParams;
+        $this->pathInfo = $pathInfo;
 
         $this->init();
     }
@@ -59,16 +65,20 @@ class FilterWrap
 
     private function getQuery(Option $option): string
     {
-        $query = '&'. $this->filter->getNameField() .'='. $option->getValue();
+        $query = '';
 
+        if (!$this->isSelectedOption($option)) {
+            $query .= '&'. $this->filter->getNameField() .'='. $option->getValue();
+        }
         foreach ($this->queryParams as $param) {
 
             if ($param->getName() !== $this->getNameField() || $param->getName() === SearchWidget::JOB_TITLE) {
                 $query .= '&'. $param->getName() .'='. $param->getValue();
             }
         }
+        $query = trim($query, '&');
 
-        return trim($query, '&');
+        return (strlen($query) > 0) ? '?'. $query : $this->pathInfo;
     }
 
     private function isSelectedOption(Option $option): bool

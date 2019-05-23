@@ -29,7 +29,7 @@ class SearchWidget
         $this->filters = $filters;
         $this->queryParams = $this->setQueryParams($request);
 
-        $this->setFilterWrap();
+        $this->setFilterWrap($request->getPathInfo());
     }
 
     public function getFilterWrap()
@@ -42,12 +42,12 @@ class SearchWidget
         return $this->queryParams;
     }
 
-    private function setFilterWrap()
+    private function setFilterWrap(string $pathInfo)
     {
         $this->filterWrap = [];
 
         foreach ($this->filters as $filter) {
-            $this->filterWrap[] = new FilterWrap($filter, $this->queryParams);
+            $this->filterWrap[] = new FilterWrap($filter, $this->queryParams, $pathInfo);
         }
     }
 

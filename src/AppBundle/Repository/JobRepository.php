@@ -23,7 +23,7 @@ class JobRepository extends EntityRepository
             if (!in_array($param->getName(), $jobProps)) {
                 continue;
             }
-            if ($param->getType() === Filter::TYPE_INT) {
+            else if ($param->getType() === Filter::TYPE_INT) {
                 $queryBuilder = $queryBuilder
                     ->andWhere('job.' .$param->getName(). ' > :' .$param->getName())
                     ->setParameter($param->getName(), $param->getValue());

@@ -9,7 +9,7 @@
             <div class="card-body pt-0 pb-3">
                 {% for option in filterWrap.options %}
                     <p class="m-1 list-group-item-action {{ option.isSelected ? 'clusters-value_selected' : '' }}">
-                        <a class="text-muted" href="?{{ option.query }}">{{ option.label }}</a>
+                        <a class="text-muted" href="{{ option.query }}">{{ option.label }}</a>
                     </p>
                 {% endfor %}
             </div>
