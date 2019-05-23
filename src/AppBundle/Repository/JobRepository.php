@@ -6,15 +6,16 @@ use AppBundle\Entity\Filter;
 use AppBundle\Entity\Job;
 use AppBundle\Widgets\SearchWidget\QueryParam;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 class JobRepository extends EntityRepository
 {
     /**
      * @param QueryParam[] $queryParams
-     * @return Job[]
+     * @return QueryBuilder
      * @throws \ReflectionException
      */
-    public function findByParams(array $queryParams = [])
+    public function getWithParamsQuery(array $queryParams = []): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder('job');
         $jobProps = $this->getJobProps();
@@ -36,9 +37,7 @@ class JobRepository extends EntityRepository
         }
 
         return $queryBuilder
-            ->orderBy('job.id', 'DESC')
-            ->getQuery()
-            ->execute();
+            ->orderBy('job.id', 'DESC');
     }
 
     /**

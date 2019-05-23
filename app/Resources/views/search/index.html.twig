@@ -5,6 +5,7 @@
 
 {% block body %}
     <section class="container">
+        <div class="total-count mb-3">{{ jobs.getTotalItemCount }} jobs</div>
         <div class="row">
             <div class="col-3">
                 {% for key, filterWrap in searchWidget.filterWrap %}
@@ -17,33 +18,8 @@
                     {% for job in jobs %}
                         {{ macroJob.print(job) }}
                     {% endfor %}
-                    <li class="list-group-item card pb-4">
-                        <div class="card-body p-0">
-                            <div class="card-title">
-                                <a href="#">Web-разработчик на Bitrix</a>
-                                <p>OOO Apple</p>
-                            </div>
-                            <p class="card-text">
-                                Редактирование основного сайта компании, верстка и программное наполнение. Динамические страницы, выборки из базы данных по критериям, прайс-листы, корзина, рассылки. ●
-                                ПК - photoshop, знание html, желательно 1С. Требования: ● Профессиональное владение БИТРИКС: УПРАВЛЕНИЕ САЙТОМ. ● PHP7.1+: (namespaces, traits, etc...
-                            </p>
-                            <a href="#">Откликнуться</a>
-                        </div>
-                    </li>
-                    <li class="list-group-item card pb-4">
-                        <div class="card-body p-0">
-                            <div class="card-title">
-                                <a href="#">Web-разработчик на Bitrix</a>
-                                <p>OOO Apple</p>
-                            </div>
-                            <p class="card-text">
-                                Веб-разработка back-end на PHP с использованием Yii2 framework. Разработка REST API.
-                                Опыт разработки на PHP от 1 года (готовы рассмотреть стажера). Опыт работы с Yii2. Опыт работы или понимание REST...
-                            </p>
-                            <a href="#">Откликнуться</a>
-                        </div>
-                    </li>
                 </ul>
+                {{ knp_pagination_render(jobs) }}
             </div>
 
         </div>
