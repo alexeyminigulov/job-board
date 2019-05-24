@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Validator as AcmeAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -12,6 +13,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(
  *  fields={"label", "filter"},
  *  message="Name should be unique."
+ * )
+ * @AcmeAssert\ConstrainType(
+ *     fields={"value"},
+ *     type="filter.type"
  * )
  */
 class Option
