@@ -43,14 +43,18 @@
                     <div class="login-dropdown head-alignment">
                         <a class="text-white" href="#">Войти</a>
                         <div class="login-dropdown-content text-left">
-                            <form>
+
+                            {{ form_start(form, { 'action': path('security_login') }) }}
+                                {{ form_errors(form) }}
                                 <div class="form-group">
-                                    <label for="exampleDropdownFormEmail2">Email address</label>
-                                    <input type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com">
+                                    {{ form_label(form._username) }}
+                                    {{ form_widget(form._username, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(form._username) }}
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleDropdownFormPassword2">Password</label>
-                                    <input type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
+                                    {{ form_label(form._password) }}
+                                    {{ form_widget(form._password, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(form._password) }}
                                 </div>
                                 <div class="form-check mb-3">
                                     <input type="checkbox" class="form-check-input" id="dropdownCheck2">
@@ -58,7 +62,7 @@
                                         Remember me
                                     </label>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Sign in</button>
+                                <button type="submit" class="submit-login btn btn-primary">Sign in</button>
                                 <div class="registration-block mt-3">
                                     <p class="text-center">Registration</p>
                                     <div class="registration-block-buttons">
@@ -66,7 +70,8 @@
                                         <button type="button" class="btn btn-light">Работодателя</button>
                                     </div>
                                 </div>
-                            </form>
+                            {{ form_end(form) }}
+
                         </div>
                     </div>
                 {% endif %}

@@ -1,24 +1,97 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html class="light-page-root">
+<head>
+    <meta charset="UTF-8" />
+    <title>Вход</title>
 
-{% block body %}
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800">
+    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <style type="text/css">
+        .light-page-root {
+            height: 100%;
+        }
+        .light-page-wrapper {
+            height: 100%;
+        }
+        .light-page_promo {
+            background: url("{{ asset('img/back-form__min_.jpg') }}") no-repeat center top fixed;
+            background-size: cover;
+            background-color: #373c55;
+            height: 100%;
+        }
+        .block-login-form {
+            margin-top: 30px;
+        }
+        .block-login-form .block-login-form__errors {
+            padding: 20px;
+            color: #ffffff;
+            background: #fb5a69;
+        }
+        .block-login-form .block-login-form__content {
+            background: #f8f8f8;
+            padding: 25px 30px;
+        }
+        .registration-block-buttons button {
+            padding: 10px 20px;
+            border-color: #acb5ba;
+        }
+        .registration-block-buttons button:last-child {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body class="light-page-wrapper">
+<div class="light-page_promo">
     <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h1>Login</h1>
-
-                {% if error %}
-                    <div class="alert alert-danger">
-                        {{ error.messageKey|trans(error.messageData, 'security') }}
+        <div class="row justify-content-md-center">
+            <div class="col-md-4">
+                <div class="block-login-form">
+                    {% if error %}
+                        <div class="block-login-form__errors">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    {% endif %}
+                    <div class="block-login-form__content">
+                        <h1>Login</h1>
+                        {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        <div class="form-group">
+                            {{ form_label(form._username) }}
+                            {{ form_widget(form._username, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form._username) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form._password) }}
+                            {{ form_widget(form._password, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form._password) }}
+                        </div>
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="dropdownCheck2">
+                            <label class="form-check-label" for="dropdownCheck2">
+                                Remember me
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <div class="registration-block mt-3">
+                            <p class="text-center">Registration</p>
+                            <div class="registration-block-buttons">
+                                <button type="button" class="btn btn-light">Соискателя</button>
+                                <button type="button" class="btn btn-light">Работодателя</button>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
                     </div>
-                {% endif %}
-
-                {{ form_start(form) }}
-                    {{ form_row(form._username) }}
-                    {{ form_row(form._password) }}
-
-                    <button type="submit" class="btn btn-success">Login</button>
-                {{ form_end(form) }}
+                </div>
             </div>
         </div>
     </div>
-{% endblock %}
+</div>
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+</body>
+</html>
