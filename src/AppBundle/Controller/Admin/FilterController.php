@@ -50,7 +50,6 @@ class FilterController extends Controller
 
     /**
      * @Route("/filters/create", name="filters_create")
-     * @Method("GET")
      */
     public function createAction(Request $request)
     {
@@ -77,7 +76,6 @@ class FilterController extends Controller
 
     /**
      * @Route("/filters/update/{id}", name="filters_update", requirements={"id"="\d+"})
-     * @Method("GET")
      */
     public function updateAction(Filter $filter, Request $request)
     {
@@ -103,7 +101,6 @@ class FilterController extends Controller
 
     /**
      * @Route("/filters/delete/{id}", name="filters_delete", requirements={"id"="\d+"})
-     * @Method("GET")
      */
     public function deleteAction(Filter $filter)
     {

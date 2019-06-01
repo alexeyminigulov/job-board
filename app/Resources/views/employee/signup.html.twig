@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="container">
+        <div class="row">
+            <div class="col-9">
+
+                <h2 class="mt-4 mb-3">Регистрация соискателя</h2>
+                {{ form_start(signupForm) }}
+                {{ form_errors(signupForm) }}
+                <div class="form-group">
+                    {{ form_label(signupForm.user.username) }}
+                    {{ form_widget(signupForm.user.username, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(signupForm.user.username) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(signupForm.user.email) }}
+                    {{ form_widget(signupForm.user.email, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(signupForm.user.email) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(signupForm.user.password.first) }}
+                    {{ form_widget(signupForm.user.password.first, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(signupForm.user.password.first) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(signupForm.user.password.second) }}
+                    {{ form_widget(signupForm.user.password.second, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(signupForm.user.password.second) }}
+                </div>
+                <button type="submit" class="submit-login btn btn-primary">Sign in</button>
+                {{ form_end(signupForm) }}
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

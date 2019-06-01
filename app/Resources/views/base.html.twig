@@ -17,7 +17,11 @@
 
     <body>
         {% include '_header.html.twig' %}
-
+        {% for msg in app.session.flashBag.get('success') %}
+            <div class="alert alert-success">
+                {{ msg }}
+            </div>
+        {% endfor %}
         {% block body %}{% endblock %}
         {% block javascripts %}
             <script src="{{ asset('js/jquery.min.js') }}"></script>

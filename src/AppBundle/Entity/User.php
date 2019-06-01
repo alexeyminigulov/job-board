@@ -5,10 +5,13 @@ namespace AppBundle\Entity;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="users")
+ * @UniqueEntity(fields={"username", "email"}, message="There is user with that email or username.")
  */
 class User implements UserInterface
 {
@@ -21,16 +24,20 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     private $password;
 
@@ -51,9 +58,19 @@ class User implements UserInterface
         return $this->username;
     }
 
+    public function setUsername(string $username)
+    {
+        return $this->username = $username;
+    }
+
     public function getEmail()
     {
         return $this->email;
+    }
+
+    public function setEmail(string $email)
+    {
+        $this->email = $email;
     }
 
     public function getRoles()
@@ -88,11 +105,6 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         $this->plainPassword = null;
-    }
-
-    public function setEmail($email)
-    {
-        $this->email = $email;
     }
 
     public function getPlainPassword()
