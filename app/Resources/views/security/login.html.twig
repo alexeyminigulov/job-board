@@ -37,11 +37,11 @@
             background: #f8f8f8;
             padding: 25px 30px;
         }
-        .registration-block-buttons button {
+        .registration-block-buttons .registration-block-buttons__btn {
             padding: 10px 20px;
             border-color: #acb5ba;
         }
-        .registration-block-buttons button:last-child {
+        .registration-block-buttons .registration-block-buttons__btn:last-child {
             margin-left: 10px;
         }
     </style>
@@ -81,8 +81,8 @@
                         <div class="registration-block mt-3">
                             <p class="text-center">Registration</p>
                             <div class="registration-block-buttons">
-                                <button type="button" class="btn btn-light">Соискателя</button>
-                                <button type="button" class="btn btn-light">Работодателя</button>
+                                <a href="{{ path('employee_signup') }}" class="btn btn-light registration-block-buttons__btn">Соискателя</a>
+                                <a href="{{ path('employer_signup') }}" class="btn btn-light registration-block-buttons__btn">Работодателя</a>
                             </div>
                         </div>
                         {{ form_end(form) }}

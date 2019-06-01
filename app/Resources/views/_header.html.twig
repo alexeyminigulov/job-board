@@ -66,8 +66,8 @@
                                 <div class="registration-block mt-3">
                                     <p class="text-center">Registration</p>
                                     <div class="registration-block-buttons">
-                                        <button type="button" class="btn btn-light">Соискателя</button>
-                                        <button type="button" class="btn btn-light">Работодателя</button>
+                                        <a href="{{ path('employee_signup') }}" class="btn btn-light">Соискателя</a>
+                                        <a href="{{ path('employer_signup') }}" class="btn btn-light">Работодателя</a>
                                     </div>
                                 </div>
                             {{ form_end(form) }}

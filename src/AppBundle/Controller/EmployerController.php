@@ -2,15 +2,15 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Employee;
-use AppBundle\Form\EmployeeSignupForm;
-use AppBundle\Security\LoginFormAuthenticator;
+use AppBundle\Entity\Employer;
+use AppBundle\Form\EmployerSignupForm;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Security\LoginFormAuthenticator;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
-class EmployeeController extends Controller
+class EmployerController extends Controller
 {
     private $authenticatorHandler;
     private $authenticator;
@@ -22,32 +22,32 @@ class EmployeeController extends Controller
     }
 
     /**
-     * @Route("/employee/signup", name="employee_signup")
+     * @Route("/employer/signup", name="employer_signup")
      */
     public function signupAction(Request $request)
     {
-        $form = $this->createForm(EmployeeSignupForm::class);
+        $form = $this->createForm(EmployerSignupForm::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var Employee $employee */
-            $employee = $form->getData();
+            /** @var Employer $employer */
+            $employer = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($employee);
+            $em->persist($employer);
             $em->flush();
 
-            $this->addFlash('success', 'Welcome ' .$employee->getUser()->getEmail());
+            $this->addFlash('success', 'Welcome ' .$employer->getUser()->getEmail());
 
             return $this->authenticatorHandler->authenticateUserAndHandleSuccess(
-                $employee->getUser(),
+                $employer->getUser(),
                 $request,
                 $this->authenticator,
                 'main'
             );
         }
 
-        return $this->render('employee/signup.html.twig', [
+        return $this->render('employer/signup.html.twig', [
             'signupForm' => $form->createView(),
         ]);
     }
