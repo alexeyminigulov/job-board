@@ -46,6 +46,11 @@ class User implements UserInterface
      */
     private $roles = [];
 
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Employee", mappedBy="user")
+     */
+    private $employee;
+
     private $plainPassword;
 
     public function getId()
@@ -116,5 +121,10 @@ class User implements UserInterface
     {
         $this->plainPassword = $plainPassword;
         $this->password = null;
+    }
+
+    public function getEmployee()
+    {
+        return $this->employee;
     }
 }
