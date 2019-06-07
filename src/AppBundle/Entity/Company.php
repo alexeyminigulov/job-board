@@ -28,8 +28,7 @@ class Company
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Employer")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Employer", mappedBy="company")
      */
     private $employer;
 
@@ -61,10 +60,5 @@ class Company
     public function getEmployer()
     {
         return $this->employer;
-    }
-
-    public function setEmployer(Employer $employer)
-    {
-        $this->employer = $employer;
     }
 }

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="container">
+        <div class="row">
+            <div class="col-9">
+
+                <h2 class="mt-4 mb-3">Создать вакансию</h2>
+                {{ form_start(createJobForm) }}
+                {{ form_errors(createJobForm) }}
+                <div class="form-group">
+                    {{ form_label(createJobForm.name) }}
+                    {{ form_widget(createJobForm.name, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(createJobForm.name) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(createJobForm.description) }}
+                    {{ form_widget(createJobForm.description, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(createJobForm.description) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(createJobForm.isPublished) }}
+                    {{ form_widget(createJobForm.isPublished) }}
+                    {{ form_errors(createJobForm.isPublished) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(createJobForm.salary) }}
+                    {{ form_widget(createJobForm.salary, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(createJobForm.salary) }}
+                </div>
+                <button type="submit" class="submit-login btn btn-primary">Create job</button>
+                {{ form_end(createJobForm) }}
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

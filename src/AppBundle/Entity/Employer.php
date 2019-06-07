@@ -25,6 +25,13 @@ class Employer
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Company", cascade={"persist", "remove" })
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
+     */
+    private $company;
+
     public function getId()
     {
         return $this->id;
@@ -38,5 +45,15 @@ class Employer
     public function setUser(User $user)
     {
         $this->user = $user;
+    }
+
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    public function setCompany(Company $company)
+    {
+        $this->company = $company;
     }
 }
