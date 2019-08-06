@@ -25,6 +25,7 @@ AppBundle\Entity\Job:
         name: <userName()>
         description: <paragraph()>
         salary: <numberBetween(100, 100000)>
+        city: <city()>
         company: '@company_*'
 
 AppBundle\Entity\Resume:

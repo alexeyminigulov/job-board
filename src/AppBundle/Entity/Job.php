@@ -39,6 +39,11 @@ class Job
     private $salary;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    private $city;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Company")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -77,6 +82,16 @@ class Job
     public function setIsPublished($isPublished): void
     {
         $this->isPublished = $isPublished;
+    }
+
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    public function setCity($city): void
+    {
+        $this->city = $city;
     }
 
     public function getSalary()

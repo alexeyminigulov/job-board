@@ -42,4 +42,31 @@ class LoadFixtures implements FixtureInterface
 
         return $genera[$key];
     }
+
+    public function city()
+    {
+        $cities = [
+            'Москва',
+            'Уфа',
+            'Казань',
+            'Пермь',
+            'Владивосток',
+            'Хабаровск',
+            'Стерлитамак',
+        ];
+
+        $cities = [
+            'Moskow',
+            'Ufa',
+            'Kazan',
+            'Perm',
+            'Vladivostok',
+            'Khabarovsk',
+            'Sterlitamak',
+        ];
+
+        $key = array_rand($cities, 1);
+
+        return $cities[$key];
+    }
 }
