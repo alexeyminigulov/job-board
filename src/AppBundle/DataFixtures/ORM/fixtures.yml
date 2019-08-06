@@ -6,19 +6,19 @@ AppBundle\Entity\User:
         username: <userName()>
         roles: ['ROLE_ADMIN']
 
-AppBundle\Entity\Employer:
-    employer_{1..10}:
-        user: '@user_*'
-
-AppBundle\Entity\Employee:
-    employee_{1..10}:
-        user: '@user_*'
-
 AppBundle\Entity\Company:
     company_{1..10}:
         name: <userName()>
         description: <paragraph()>
-        employer: '@employer_*'
+
+AppBundle\Entity\Employer:
+    employer_{1..10}:
+        user: '@user_*'
+        company: '@company_*'
+
+AppBundle\Entity\Employee:
+    employee_{1..10}:
+        user: '@user_*'
 
 AppBundle\Entity\Job:
     job_{1..10}:

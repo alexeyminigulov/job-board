@@ -2,7 +2,7 @@
     <li class="list-group-item card pb-4">
         <div class="card-body p-0">
             <div class="card-title">
-                <a href="#">{{ job.name }}</a>
+                <a href="{{ path('desc_job', {'id': job.id}) }}">{{ job.name }}</a>
                 <p>{{ job.company.name }}</p>
                 <p>{{ job.salary }}</p>
             </div>

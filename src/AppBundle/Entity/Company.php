@@ -27,11 +27,6 @@ class Company
      */
     private $description;
 
-    /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Employer", mappedBy="company")
-     */
-    private $employer;
-
     public function getId()
     {
         return $this->id;
@@ -55,10 +50,5 @@ class Company
     public function setDescription($description): void
     {
         $this->description = $description;
-    }
-
-    public function getEmployer()
-    {
-        return $this->employer;
     }
 }
