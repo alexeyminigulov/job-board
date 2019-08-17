@@ -71,3 +71,18 @@ swiftmailer:
 sensio_framework_extra:
    router:
         annotations: false
+
+fos_elastica:
+    clients:
+        default: { host: jb-elasticsearch, port: 9200 }
+    indexes:
+        job-board:
+            types:
+                job:
+                    properties:
+                        name: { type: text, index: true }
+                        description: { type: text, index: true }
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\Job
+                        provider: ~

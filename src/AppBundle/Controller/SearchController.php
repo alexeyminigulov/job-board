@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Filter;
 use AppBundle\Widgets\SearchWidget\SearchWidget;
+use Elastica\Search;
+use FOS\ElasticaBundle\Index\IndexManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,6 +18,16 @@ class SearchController extends Controller
      */
     public function indexAction(Request $request, PaginatorInterface $paginator)
     {
+        if ($query = $request->get('name')) {
+            /** @var IndexManager $indexManager */
+            $indexManager = $this->get('fos_elastica.index_manager');
+            /** @var Search $search */
+            $search = $indexManager->getIndex('job_board')->createSearch();
+            $search->addType('job');
+            $result = $search->search($query)->getResults();
+            dump($result);
+        }
+
         /** @var Filter[] $filters */
         $filters = $this->getDoctrine()
             ->getRepository('AppBundle:Filter')
