@@ -41,6 +41,9 @@ services:
             $passwordEncoder: '@Symfony\Component\Security\Core\Encoder\UserPasswordEncoder'
         tags: ['doctrine.event_subscriber']
 
+    AppBundle\Repository\:
+        resource: '../../src/AppBundle/Repository'
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:

@@ -7,20 +7,56 @@ use AppBundle\Entity\Job;
 use AppBundle\Widgets\SearchWidget\QueryParam;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\EntityManagerInterface;
 
-class JobRepository extends EntityRepository
+class JobRepository
 {
     /**
+    * @var EntityRepository
+    */
+    private $repository;
+
+    private $queryParams = [];
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->repository = $entityManager->getRepository(Job::class);
+    }
+
+    /**
+     * @param QueryParam $queryParam
+     * @return JobRepository
+     */
+    public function attachQueryParam($queryParam = null)
+    {
+        if (!empty($queryParam)) {
+            $this->queryParams[] = $queryParam;
+        }
+        return $this;
+    }
+
+    /**
      * @param QueryParam[] $queryParams
+     * @return JobRepository
+     */
+    public function attachQueryParams(array $queryParams = [])
+    {
+        if (!empty($queryParams)) {
+            $this->queryParams = array_merge($this->queryParams, $queryParams);
+        }
+        return $this;
+    }
+
+    /**
      * @return QueryBuilder
      * @throws \ReflectionException
      */
-    public function getWithParamsQuery(array $queryParams = []): QueryBuilder
+    public function getBuilder()
     {
-        $queryBuilder = $this->createQueryBuilder('job');
+        $queryBuilder = $this->repository->createQueryBuilder('job');
         $jobProps = $this->getJobProps();
 
-        foreach ($queryParams as $param) {
+        foreach ($this->queryParams as $param) {
             if (!in_array($param->getName(), $jobProps)) {
                 continue;
             }
@@ -28,6 +64,11 @@ class JobRepository extends EntityRepository
                 $queryBuilder = $queryBuilder
                     ->andWhere('job.' .$param->getName(). ' > :' .$param->getName())
                     ->setParameter($param->getName(), $param->getValue());
+            }
+            else if ($param->getType() === Filter::TYPE_ARRAY) {
+                $queryBuilder = $queryBuilder
+                    ->andWhere($queryBuilder->expr()->in('job.' .$param->getName(), ':subQuery'))
+                    ->setParameter('subQuery', $param->getValue());
             }
             else {
                 $queryBuilder = $queryBuilder

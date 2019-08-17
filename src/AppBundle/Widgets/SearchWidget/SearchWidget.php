@@ -61,9 +61,6 @@ class SearchWidget
                 $params[] = new QueryParam($nameField, $value, $filter->getType());
             }
         }
-        if ($value = $request->get(self::JOB_TITLE)) {
-            $params[] = new QueryParam(self::JOB_TITLE, $value, Filter::TYPE_TEXT);
-        }
 
         return $params;
     }

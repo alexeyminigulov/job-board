@@ -9,9 +9,6 @@ class QueryParam
      */
     private $name;
 
-    /**
-     * @var string
-     */
     private $value;
 
     /**
@@ -19,7 +16,7 @@ class QueryParam
      */
     private $type;
 
-    public function __construct(string $name, string $value, string $type)
+    public function __construct(string $name, $value, string $type)
     {
         $this->name = $name;
         $this->value = $value;

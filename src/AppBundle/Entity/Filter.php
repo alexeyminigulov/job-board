@@ -15,6 +15,7 @@ class Filter
 {
     const TYPE_INT = 'integer';
     const TYPE_TEXT = 'text';
+    const TYPE_ARRAY = 'array';
 
     /**
      * @ORM\Id
