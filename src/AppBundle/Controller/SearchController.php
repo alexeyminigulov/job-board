@@ -2,8 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Search;
 use Elastica\Result;
 use AppBundle\Entity\Filter;
+use AppBundle\Form\SearchForm;
 use AppBundle\Repository\JobRepository;
 use AppBundle\Widgets\SearchWidget\QueryParam;
 use AppBundle\Widgets\SearchWidget\SearchWidget;
@@ -39,10 +41,20 @@ class SearchController extends Controller
      */
     public function indexAction(Request $request, PaginatorInterface $paginator)
     {
-        if ($query = $request->get('name')) {
+        $search = new Search();
+        $form = $this->createForm(SearchForm::class, $search, [
+            'action' => $this->generateUrl('search'),
+            'method' => 'GET',
+            'csrf_protection' => false,
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $searchText = $form->get('name')->getData();
 
             $search = $this->indexManager->getIndex('job_board')->createSearch();
-            $jobs = $search->addType('job')->search($query)->getResults();
+            $jobs = $search->addType('job')->search($searchText)->getResults();
             $jobIndices = array_map(function(Result $result) {
                 return (int)$result->getParam('_id');
             }, $jobs);
@@ -55,8 +67,7 @@ class SearchController extends Controller
         $filters = $this->getDoctrine()
             ->getRepository('AppBundle:Filter')
             ->findAll();
-
-        $searchWidget = new SearchWidget($filters, $request);
+        $searchWidget = new SearchWidget($filters, $request, $form->getData());
         $this->repository->attachQueryParams($searchWidget->getQueryParams());
 
         try {
@@ -73,6 +84,7 @@ class SearchController extends Controller
 
         return $this->render('search/index.html.twig', [
             'searchWidget' => $searchWidget,
+            'formSearch' => $form->createView(),
             'jobs' => $jobs,
         ]);
     }

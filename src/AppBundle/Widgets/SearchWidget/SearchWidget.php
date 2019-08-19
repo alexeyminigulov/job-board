@@ -3,12 +3,11 @@
 namespace AppBundle\Widgets\SearchWidget;
 
 use AppBundle\Entity\Filter;
+use AppBundle\Entity\Search;
 use Symfony\Component\HttpFoundation\Request;
 
 class SearchWidget
 {
-    const JOB_TITLE = 'name';
-
     /**
      * @var Filter[]
      */
@@ -24,10 +23,10 @@ class SearchWidget
      */
     private $queryParams;
 
-    public function __construct(array $filters, Request $request)
+    public function __construct(array $filters, Request $request, Search $search)
     {
         $this->filters = $filters;
-        $this->queryParams = $this->setQueryParams($request);
+        $this->queryParams = $this->setQueryParams($request, $search);
 
         $this->setFilterWrap($request->getPathInfo());
     }
@@ -51,7 +50,7 @@ class SearchWidget
         }
     }
 
-    private function setQueryParams(Request $request)
+    private function setQueryParams(Request $request, Search $search)
     {
         $params = [];
         foreach ($this->filters as $filter) {
@@ -60,6 +59,9 @@ class SearchWidget
             if ($value = $request->get($nameField)) {
                 $params[] = new QueryParam($nameField, $value, $filter->getType());
             }
+        }
+        if ($value = $request->get($search::TITLE)) {
+            $params[] = new QueryParam($search::TITLE, $search->getName(), Filter::TYPE_TEXT);
         }
 
         return $params;

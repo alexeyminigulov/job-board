@@ -4,6 +4,7 @@ namespace AppBundle\Widgets\SearchWidget;
 
 use AppBundle\Entity\Filter;
 use AppBundle\Entity\Option;
+use AppBundle\Entity\Search;
 
 class FilterWrap
 {
@@ -72,7 +73,7 @@ class FilterWrap
         }
         foreach ($this->queryParams as $param) {
 
-            if ($param->getName() !== $this->getNameField() || $param->getName() === SearchWidget::JOB_TITLE) {
+            if ($param->getName() !== $this->getNameField() || $param->getName() === Search::TITLE) {
                 $query .= '&'. $param->getName() .'='. $param->getValue();
             }
         }

@@ -4,6 +4,7 @@ namespace AppBundle\Repository;
 
 use AppBundle\Entity\Filter;
 use AppBundle\Entity\Job;
+use AppBundle\Entity\Search;
 use AppBundle\Widgets\SearchWidget\QueryParam;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -57,7 +58,7 @@ class JobRepository
         $jobProps = $this->getJobProps();
 
         foreach ($this->queryParams as $param) {
-            if (!in_array($param->getName(), $jobProps)) {
+            if (!in_array($param->getName(), $jobProps) || $param->getName() === Search::TITLE) {
                 continue;
             }
             else if ($param->getType() === Filter::TYPE_INT) {
