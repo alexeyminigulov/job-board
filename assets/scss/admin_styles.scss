@@ -19,12 +19,12 @@ main {
   background-color: darken(#fff, 10%);
 }
 
-.breadcrumb .breadcrumb-item a {
+.breadcrumb .breadcrumb__item a {
   color: white;
 }
 
-.breadcrumb .breadcrumb-item.active,
-.breadcrumb .breadcrumb-item::before {
+.breadcrumb .breadcrumb__item.active,
+.breadcrumb .breadcrumb__item::before {
   color: #b1d9f1;
 }
 

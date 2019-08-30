@@ -1,25 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <section class="container">
-        <div class="row">
-            <div class="col-9">
+    <section class="job">
+        <div class="container">
+            <div class="row">
+                <div class="col-9">
 
-                <div class="card">
-                    <div class="card-header">
-                        {{ job.name }}
+                    <div class="card">
+                        <div class="card-header">
+                            {{ job.name }}
+                        </div>
+                        <div class="card-body">
+                            <p>{{ job.salary }} USD</p>
+                            <p>{{ job.company.name }}</p>
+                            <p>{{ job.city }}, улица Платонова, 20Бк4</p>
+                            <a href="#" class="btn btn-success">Откликнуться</a>
+                            <p class="card-text mt-4">
+                                {{ job.description }}
+                            </p>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <p>{{ job.salary }} USD</p>
-                        <p>{{ job.company.name }}</p>
-                        <p>{{ job.city }}, улица Платонова, 20Бк4</p>
-                        <a href="#" class="btn btn-success">Откликнуться</a>
-                        <p class="card-text mt-4">
-                            {{ job.description }}
-                        </p>
-                    </div>
+
                 </div>
-
             </div>
         </div>
     </section>

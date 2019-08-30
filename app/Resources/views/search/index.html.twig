@@ -4,24 +4,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <section class="container">
-        <div class="total-count mb-3">{{ jobs.getTotalItemCount }} jobs</div>
-        <div class="row">
-            <div class="col-3">
-                {% for key, filterWrap in searchWidget.filterWrap %}
-                    {{ macroFilter.print(key, filterWrap) }}
-                {% endfor %}
-            </div>
-
-            <div class="col">
-                <ul class="list-group">
-                    {% for job in jobs %}
-                        {{ macroJob.print(job) }}
+    <section class="main">
+        <div class="container">
+            <div class="total-count mb-3">{{ jobs.getTotalItemCount }} jobs</div>
+            <div class="row">
+                <div class="col-3">
+                    {% for key, filterWrap in searchWidget.filterWrap %}
+                        {{ macroFilter.print(key, filterWrap) }}
                     {% endfor %}
-                </ul>
-                {{ knp_pagination_render(jobs) }}
+                </div>
+                <div class="col">
+                    <ul class="jobs list-group">
+                        {% for job in jobs %}
+                            {{ macroJob.print(job) }}
+                        {% endfor %}
+                    </ul>
+                    {{ knp_pagination_render(jobs) }}
+                </div>
             </div>
-
         </div>
     </section>
 {% endblock %}

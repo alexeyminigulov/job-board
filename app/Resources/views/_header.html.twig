@@ -1,7 +1,8 @@
-<section class="container">
-    {{ form_start(formSearch, {'attr': {
-        'class': 'd-flex flex-row align-items-center mt-2 mb-3 search-form',
-    }}) }}
+<section class="header-search">
+    <div class="container">
+        {{ form_start(formSearch, {'attr': {
+            'class': 'd-flex flex-row align-items-center mt-2 mb-3 search-form',
+        }}) }}
         <div class="m-0 mr-3">
             <img src="https://i.hh.ru/logos/svg/hh.ru-small.svg" alt="logo" width="50" height="50">
         </div>
@@ -27,10 +28,11 @@
         <div class="ml-4">
             <a class="text-muted" href="#">Расширенный поиск</a>
         </div>
-    {{ form_end(formSearch) }}
+        {{ form_end(formSearch) }}
+    </div>
 </section>
 
-<section class="bg-dark mb-2">
+<section class="user-bar bg-dark mb-2">
     <div class="container">
         <div class="row">
             <div class="col-2 head-alignment">
