@@ -27,6 +27,12 @@ class Company
      */
     private $description;
 
+    public function __construct(string $name, string $description)
+    {
+        $this->name = $name;
+        $this->description = $description;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -37,18 +43,8 @@ class Company
         return $this->name;
     }
 
-    public function setName($name): void
-    {
-        $this->name = $name;
-    }
-
     public function getDescription()
     {
         return $this->description;
-    }
-
-    public function setDescription($description): void
-    {
-        $this->description = $description;
     }
 }

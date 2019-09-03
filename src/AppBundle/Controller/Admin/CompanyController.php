@@ -6,7 +6,6 @@ use AppBundle\Entity\Company;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CompanyController extends Controller
@@ -38,6 +37,8 @@ class CompanyController extends Controller
     /**
      * @Route("/admin/companies/{id}", name="admin_companies_show")
      * @Method("GET")
+     * @param Company $company
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(Company $company)
     {

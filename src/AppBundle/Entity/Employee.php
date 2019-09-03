@@ -25,6 +25,11 @@ class Employee
      */
     private $user;
 
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -33,10 +38,5 @@ class Employee
     public function getUser()
     {
         return $this->user;
-    }
-
-    public function setUser(User $user)
-    {
-        $this->user = $user;
     }
 }

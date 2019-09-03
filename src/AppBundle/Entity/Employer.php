@@ -32,6 +32,12 @@ class Employer
      */
     private $company;
 
+    public function __construct(User $user, Company $company)
+    {
+        $this->user = $user;
+        $this->company = $company;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -42,18 +48,8 @@ class Employer
         return $this->user;
     }
 
-    public function setUser(User $user)
-    {
-        $this->user = $user;
-    }
-
     public function getCompany()
     {
         return $this->company;
-    }
-
-    public function setCompany(Company $company)
-    {
-        $this->company = $company;
     }
 }

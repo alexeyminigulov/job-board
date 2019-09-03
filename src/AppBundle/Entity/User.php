@@ -15,6 +15,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class User implements UserInterface
 {
+    public const STATUS_WAIT = 'wait';
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_BLOCKED = 'blocked';
+
+    public const ROLE_USER = 'ROLE_USER';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -58,6 +64,14 @@ class User implements UserInterface
 
     private $plainPassword;
 
+    public function __construct(string $username, string $email, string $password)
+    {
+        $this->username = $username;
+        $this->email = $email;
+        $this->password = $password;
+        $this->roles[] = self::ROLE_USER;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -68,44 +82,24 @@ class User implements UserInterface
         return $this->username;
     }
 
-    public function setUsername(string $username)
-    {
-        return $this->username = $username;
-    }
-
     public function getEmail()
     {
         return $this->email;
     }
 
-    public function setEmail(string $email)
-    {
-        $this->email = $email;
-    }
-
     public function getRoles()
     {
         $roles = $this->roles;
-        if (!in_array('ROLE_USER', $roles)) {
-            $roles[] = 'ROLE_USER';
+        if (!in_array(self::ROLE_USER, $roles)) {
+            $roles[] = self::ROLE_USER;
         }
 
         return $roles;
     }
 
-    public function setRoles($roles)
-    {
-        $this->roles = $roles;
-    }
-
     public function getPassword()
     {
         return $this->password;
-    }
-
-    public function setPassword($password)
-    {
-        $this->password = $password;
     }
 
     public function getSalt()

@@ -46,6 +46,13 @@ class Option
      */
     private $filter;
 
+    public function __construct(string $label, string $value, Filter $filter)
+    {
+        $this->label = $label;
+        $this->value = $value;
+        $this->filter = $filter;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -56,19 +63,9 @@ class Option
         return $this->label;
     }
 
-    public function setLabel(string $label): void
-    {
-        $this->label = $label;
-    }
-
     public function getValue()
     {
         return $this->value;
-    }
-
-    public function setValue(string $value): void
-    {
-        $this->value = $value;
     }
 
     public function getFilter()
@@ -76,8 +73,8 @@ class Option
         return $this->filter;
     }
 
-    public function setFilter(Filter $filter)
+    public function isExist(string $label): bool
     {
-        $this->filter = $filter;
+        return $this->label == $label;
     }
 }

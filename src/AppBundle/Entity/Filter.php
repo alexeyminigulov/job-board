@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -13,9 +12,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Filter
 {
-    const TYPE_INT = 'integer';
-    const TYPE_TEXT = 'text';
-    const TYPE_ARRAY = 'array';
+    public const STATUS_DRAFT = false;
+    public const STATUS_ACTIVE = true;
+
+    public const TYPE_INT = 'integer';
+    public const TYPE_TEXT = 'text';
+    public const TYPE_ARRAY = 'array';
 
     /**
      * @ORM\Id
@@ -44,12 +46,13 @@ class Filter
     private $isPublished = false;
 
     /**
+     * TODO: Realize this property
      * @ORM\Column(type="boolean")
      */
     private $isFolded;
 
     /**
-     * @var Collection
+     * @var Option[]|ArrayCollection
      * @ORM\OneToMany(
      *     targetEntity="Option",
      *     mappedBy="filter",
@@ -68,8 +71,12 @@ class Filter
      */
     private $type = self::TYPE_TEXT;
 
-    public function __construct()
+    public function __construct(string $name, string $nameField)
     {
+        $this->name = $name;
+        $this->nameField = $nameField;
+        $this->isPublished = self::STATUS_DRAFT;
+        $this->isFolded = false;
         $this->options = new ArrayCollection();
     }
 
@@ -83,19 +90,9 @@ class Filter
         return $this->name;
     }
 
-    public function setName($name): void
-    {
-        $this->name = $name;
-    }
-
     public function getNameField()
     {
         return $this->nameField;
-    }
-
-    public function setNameField($nameField): void
-    {
-        $this->nameField = $nameField;
     }
 
     public function getIsPublished()
@@ -103,47 +100,51 @@ class Filter
         return $this->isPublished;
     }
 
-    public function setIsPublished($isPublished): void
-    {
-        $this->isPublished = $isPublished;
-    }
-
     public function getIsFolded()
     {
         return $this->isFolded;
     }
 
-    public function setIsFolded($isFolded): void
-    {
-        $this->isFolded = $isFolded;
-    }
-
     /**
      * @return ArrayCollection|User[]
      */
-    public function getOptions(): Collection
+    public function getOptions(): ArrayCollection
     {
         return $this->options;
     }
 
-    public function addOption(Option $option)
+    /**
+     * @param string $label
+     * @param string $value
+     * @return Option
+     * @throws \Exception
+     */
+    public function addOption(string $label, string $value): Option
     {
-        if ($this->options->contains($option)
-            || $this->options->exists(function (int $key, Option $item) use ($option) {
-                return $option->getLabel() === $item->getLabel();
-            })) {
-            return;
+        foreach ($this->options as $option) {
+            if ($option->isExist($label)) {
+                throw new \Exception('Option with that name already exists');
+            }
         }
-        $option->setFilter($this);
+        $option = new Option($label, $value, $this);
         $this->options->add($option);
+
+        return $option;
     }
 
+    /**
+     * @param Option $option
+     * @throws \Exception
+     */
     public function removeOption(Option $option)
     {
-        if (!$this->options->contains($option)) {
-            return;
+        foreach ($this->options as $key => $item) {
+            if ($item->isExist($option->getLabel())) {
+                $this->options->remove($key);
+                return;
+            }
         }
-        $this->options->removeElement($option);
+        throw new \Exception('Option with that name already exists');
     }
 
     public function getType(): string

@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Job
 {
+    public const STATUS_DRAFT = false;
+    public const STATUS_ACTIVE = true;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -48,6 +50,19 @@ class Job
      */
     private $company;
 
+    public function __construct(
+        string $name, string $description,
+        string $city, $salary, Company $company
+    )
+    {
+        $this->name = $name;
+        $this->description = $description;
+        $this->isPublished = self::STATUS_DRAFT;
+        $this->city = $city;
+        $this->salary = (int)$salary;
+        $this->company = $company;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -58,19 +73,9 @@ class Job
         return $this->name;
     }
 
-    public function setName($name): void
-    {
-        $this->name = $name;
-    }
-
     public function getDescription()
     {
         return $this->description;
-    }
-
-    public function setDescription($description): void
-    {
-        $this->description = $description;
     }
 
     public function getIsPublished()
@@ -78,19 +83,9 @@ class Job
         return $this->isPublished;
     }
 
-    public function setIsPublished($isPublished): void
-    {
-        $this->isPublished = $isPublished;
-    }
-
     public function getCity()
     {
         return $this->city;
-    }
-
-    public function setCity($city): void
-    {
-        $this->city = $city;
     }
 
     public function getSalary()
@@ -98,18 +93,8 @@ class Job
         return $this->salary;
     }
 
-    public function setSalary($salary): void
-    {
-        $this->salary = $salary;
-    }
-
     public function getCompany()
     {
         return $this->company;
-    }
-
-    public function setCompany(Company $company)
-    {
-        $this->company = $company;
     }
 }
