@@ -1,8 +1,7 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\User;
 
-use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,8 +17,6 @@ class User implements UserInterface
     public const STATUS_WAIT = 'wait';
     public const STATUS_ACTIVE = 'active';
     public const STATUS_BLOCKED = 'blocked';
-
-    public const ROLE_USER = 'ROLE_USER';
 
     /**
      * @ORM\Id
@@ -64,12 +61,15 @@ class User implements UserInterface
 
     private $plainPassword;
 
-    public function __construct(string $username, string $email, string $password)
+    public function __construct(string $username, string $email, string $password, $role = null)
     {
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
-        $this->roles[] = self::ROLE_USER;
+        $this->roles[] = Role::ROLE_USER;
+        if ($role) {
+            $this->roles[] = Role::ROLE_EMPLOYEE;
+        }
     }
 
     public function getId()
@@ -89,12 +89,7 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        $roles = $this->roles;
-        if (!in_array(self::ROLE_USER, $roles)) {
-            $roles[] = self::ROLE_USER;
-        }
-
-        return $roles;
+        return $this->roles;
     }
 
     public function getPassword()

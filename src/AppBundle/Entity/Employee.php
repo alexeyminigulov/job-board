@@ -2,6 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\User\Role;
+use AppBundle\Entity\User\User;
+use AppBundle\Form\EmployeeSignup\Data;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -19,14 +22,15 @@ class Employee
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", cascade={"persist", "remove" })
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", cascade={"persist", "remove" })
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
     private $user;
 
-    public function __construct(User $user)
+    public function __construct(Data $data)
     {
+        $user = new User($data->username, $data->email, $data->password, Role::ROLE_EMPLOYEE);
         $this->user = $user;
     }
 

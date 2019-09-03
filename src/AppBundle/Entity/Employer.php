@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\User\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -19,7 +20,7 @@ class Employer
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", cascade={"persist", "remove" })
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", cascade={"persist", "remove" })
      * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
