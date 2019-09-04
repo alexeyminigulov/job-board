@@ -5,9 +5,10 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Employer;
 use AppBundle\Entity\Job;
 use AppBundle\Form\EmployerSignup\Form;
-use AppBundle\Form\JobForm;
+use AppBundle\Form\Job\Form as JobForm;
 use AppBundle\Form\EmployerSignup\Data;
 use AppBundle\Services\EmployerService;
+use AppBundle\Form\Job\Data as JobData;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Security\LoginFormAuthenticator;
 use Symfony\Component\Routing\Annotation\Route;
@@ -79,20 +80,15 @@ class EmployerController extends Controller
             ->getUser()
             ->getEmployer()
             ->getCompany();
-        $form = $this->createForm(JobForm::class);
-
+        $data = new JobData();
+        $form = $this->createForm(JobForm::class, $data);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var Job $job*/
-            $job = $form->getData();
-            $job->setCompany($company);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($job);
-            $em->flush();
-
-            $this->addFlash('success', 'Welcome ' .$job->getName());
-
+            $job = new Job($data, $company);
+            $this->service->addJob($job);
+            $this->addFlash('success', 'Job ' .$job->getName().' has been created.');
             return $this->redirectToRoute('homepage');
         }
 

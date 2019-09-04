@@ -3,6 +3,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Employer;
+use AppBundle\Entity\Job;
 use Doctrine\ORM\EntityManagerInterface;
 use AppBundle\Repository\UserRepository;
 
@@ -34,6 +35,12 @@ class EmployerService
             throw new \Exception('Another employee with the same email already exists.');
         }
         $this->em->persist($employer);
+        $this->em->flush();
+    }
+
+    public function addJob(Job $job)
+    {
+        $this->em->persist($job);
         $this->em->flush();
     }
 }

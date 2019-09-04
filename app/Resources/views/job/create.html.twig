@@ -28,6 +28,11 @@
                     {{ form_widget(createJobForm.salary, {'attr': {'class': 'form-control'}}) }}
                     {{ form_errors(createJobForm.salary) }}
                 </div>
+                <div class="form-group">
+                    {{ form_label(createJobForm.city) }}
+                    {{ form_widget(createJobForm.city, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(createJobForm.city) }}
+                </div>
                 <button type="submit" class="submit-login btn btn-primary">Create job</button>
                 {{ form_end(createJobForm) }}
 

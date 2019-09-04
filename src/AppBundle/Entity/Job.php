@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Form\Job\Data;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,21 +46,18 @@ class Job
     private $city;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Company")
+     * @ORM\ManyToOne(targetEntity="Company", cascade={"persist", "remove" })
      * @ORM\JoinColumn(nullable=false)
      */
     private $company;
 
-    public function __construct(
-        string $name, string $description,
-        string $city, $salary, Company $company
-    )
+    public function __construct(Data $data, Company $company)
     {
-        $this->name = $name;
-        $this->description = $description;
+        $this->name = $data->name;
+        $this->description = $data->description;
         $this->isPublished = self::STATUS_DRAFT;
-        $this->city = $city;
-        $this->salary = (int)$salary;
+        $this->city = $data->city;
+        $this->salary = (int)$data->salary;
         $this->company = $company;
     }
 
