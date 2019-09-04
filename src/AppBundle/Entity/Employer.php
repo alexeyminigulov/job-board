@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\User\Role;
+use AppBundle\Form\EmployerSignup\Data;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\User\User;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -33,10 +35,15 @@ class Employer
      */
     private $company;
 
-    public function __construct(User $user, Company $company)
+    public function __construct(Data $data)
     {
-        $this->user = $user;
-        $this->company = $company;
+        $this->user = new User(
+            $data->user->username,
+            $data->user->email,
+            $data->user->password,
+            Role::ROLE_EMPLOYER
+        );
+        $this->company = new Company($data->company->name, $data->company->description);
     }
 
     public function getId()

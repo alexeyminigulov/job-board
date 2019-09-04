@@ -7,6 +7,7 @@ use AppBundle\Entity\Job;
 use AppBundle\Form\EmployerSignup\Form;
 use AppBundle\Form\JobForm;
 use AppBundle\Form\EmployerSignup\Data;
+use AppBundle\Services\EmployerService;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Security\LoginFormAuthenticator;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,14 +18,17 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class EmployerController extends Controller
 {
+    private $service;
     private $authenticatorHandler;
     private $authenticator;
     private $tokenStorage;
 
-    public function __construct(GuardAuthenticatorHandler $authenticatorHandler,
+    public function __construct(EmployerService $service,
+                                GuardAuthenticatorHandler $authenticatorHandler,
                                 LoginFormAuthenticator $authenticator,
                                 TokenStorageInterface $tokenStorage)
     {
+        $this->service = $service;
         $this->authenticatorHandler = $authenticatorHandler;
         $this->authenticator = $authenticator;
         $this->tokenStorage = $tokenStorage;
@@ -37,26 +41,24 @@ class EmployerController extends Controller
     {
         $data = new Data();
         $form = $this->createForm(Form::class, $data);
-
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($data);die;
-            /** @var Employer $employer */
-            $employer = $form->getData();
-            $employer->getUser()->setRoles(['ROLE_EMPLOYER']);
+            $employer = new Employer($data);
+            try {
+                $this->service->singup($employer);
+                $this->addFlash('success', 'Welcome ' .$employer->getUser()->getEmail());
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($employer);
-            $em->flush();
-
-            $this->addFlash('success', 'Welcome ' .$employer->getUser()->getEmail());
-
-            return $this->authenticatorHandler->authenticateUserAndHandleSuccess(
-                $employer->getUser(),
-                $request,
-                $this->authenticator,
-                'main'
-            );
+                return $this->authenticatorHandler->authenticateUserAndHandleSuccess(
+                    $employer->getUser(),
+                    $request,
+                    $this->authenticator,
+                    'main'
+                );
+            }
+            catch (\Exception $e) {
+                $this->addFlash('error', $e->getMessage());
+            }
         }
 
         return $this->render('employer/signup.html.twig', [
