@@ -1,8 +1,7 @@
 <?php
 
-namespace AppBundle\Form\Type;
+namespace AppBundle\Form\EmployerSignup\User;
 
-use AppBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -30,7 +29,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Data::class,
         ]);
     }
 }

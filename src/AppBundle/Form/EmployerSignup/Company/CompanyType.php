@@ -1,28 +1,25 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\EmployerSignup\Company;
 
-use AppBundle\Entity\Employer;
-use AppBundle\Form\Type\UserType;
-use AppBundle\Form\Type\CompanyType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EmployerSignupForm extends AbstractType
+class CompanyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user', UserType::class)
-            ->add('company', CompanyType::class)
+            ->add('name')
+            ->add('description')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Employer::class,
+            'data_class' => Data::class,
         ]);
     }
 }

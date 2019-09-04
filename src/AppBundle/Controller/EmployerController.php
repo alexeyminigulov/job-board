@@ -4,8 +4,9 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Employer;
 use AppBundle\Entity\Job;
-use AppBundle\Form\EmployerSignupForm;
+use AppBundle\Form\EmployerSignup\Form;
 use AppBundle\Form\JobForm;
+use AppBundle\Form\EmployerSignup\Data;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Security\LoginFormAuthenticator;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,10 +35,12 @@ class EmployerController extends Controller
      */
     public function signupAction(Request $request)
     {
-        $form = $this->createForm(EmployerSignupForm::class);
+        $data = new Data();
+        $form = $this->createForm(Form::class, $data);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($data);die;
             /** @var Employer $employer */
             $employer = $form->getData();
             $employer->getUser()->setRoles(['ROLE_EMPLOYER']);
