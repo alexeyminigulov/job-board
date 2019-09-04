@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Form\Resume\Data;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,12 +47,12 @@ class Resume
      */
     private $employee;
 
-    public function __construct(string $name, string $description, $salary, Employee $employee)
+    public function __construct(Data $data, Employee $employee)
     {
-        $this->name = $name;
-        $this->description = $description;
+        $this->name = $data->name;
+        $this->description = $data->description;
         $this->isPublished = self::STATUS_DRAFT;
-        $this->salary = (int)$salary;
+        $this->salary = (int)$data->salary;
         $this->employee = $employee;
     }
 

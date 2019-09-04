@@ -68,7 +68,7 @@ class User implements UserInterface
         $this->password = $password;
         $this->roles[] = Role::ROLE_USER;
         if ($role) {
-            $this->roles[] = Role::ROLE_EMPLOYEE;
+            $this->roles[] = $role;
         }
     }
 

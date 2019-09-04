@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Employee;
 use AppBundle\Entity\Resume;
 use AppBundle\Form\EmployeeSignup\Data;
-use AppBundle\Form\ResumeForm;
+use AppBundle\Form\Resume\Form as ResumeForm;
+use AppBundle\Form\Resume\Data as ResumeData;
 use AppBundle\Form\EmployeeSignup\Form;
 use AppBundle\Security\LoginFormAuthenticator;
 use AppBundle\Services\EmployeeService;
@@ -72,19 +73,17 @@ class EmployeeController extends Controller
      */
     public function resumeAction(Request $request)
     {
+        /**
+         * TODO Handle empty employee Error
+         */
         $employee = $this->tokenStorage->getToken()->getUser()->getEmployee();
-        $form = $this->createForm(ResumeForm::class);
+        $data = new ResumeData();
+        $form = $this->createForm(ResumeForm::class, $data);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var Resume $resume */
-            $resume = $form->getData();
-            $resume->setEmployee($employee);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($resume);
-            $em->flush();
-
+            $resume = new Resume($data, $employee);
+            $this->service->addResume($resume);
             $this->addFlash('success', 'Added resume.');
 
             return $this->redirectToRoute('homepage');

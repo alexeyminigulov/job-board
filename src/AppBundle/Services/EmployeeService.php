@@ -3,6 +3,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Employee;
+use AppBundle\Entity\Resume;
 use Doctrine\ORM\EntityManagerInterface;
 use AppBundle\Repository\UserRepository;
 
@@ -34,6 +35,12 @@ class EmployeeService
             throw new \Exception('Another employee with the same email already exists.');
         }
         $this->em->persist($employee);
+        $this->em->flush();
+    }
+
+    public function addResume(Resume $resume): void
+    {
+        $this->em->persist($resume);
         $this->em->flush();
     }
 }
