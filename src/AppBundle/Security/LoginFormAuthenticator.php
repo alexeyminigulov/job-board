@@ -8,12 +8,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
@@ -21,12 +18,19 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     private $formFactory;
     private $em;
     private $router;
+    private $encoder;
 
-    public function __construct(FormFactoryInterface $formFactory, EntityManagerInterface $em, RouterInterface $router)
+    public function __construct(
+        FormFactoryInterface $formFactory,
+        EntityManagerInterface $em,
+        RouterInterface $router,
+        PasswordEncoder $encoder
+    )
     {
         $this->formFactory = $formFactory;
         $this->em = $em;
         $this->router = $router;
+        $this->encoder = $encoder;
     }
 
     public function getCredentials(Request $request)
@@ -60,7 +64,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
         $password = $credentials['_password'];
 
-        if ($password === 'maxim') {
+        if ($this->encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt())) {
             return true;
         }
         return false;
@@ -71,10 +75,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return $this->router->generate('security_login');
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    public function getDefaultSuccessRedirectUrl()
     {
-        $url = $this->router->generate('homepage');
-
-        return new RedirectResponse($url);
+        return $this->router->generate('homepage');
     }
 }

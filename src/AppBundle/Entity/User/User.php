@@ -99,6 +99,7 @@ class User implements UserInterface
 
     public function getSalt()
     {
+        return null;
     }
 
     public function eraseCredentials()
@@ -109,12 +110,6 @@ class User implements UserInterface
     public function getPlainPassword()
     {
         return $this->plainPassword;
-    }
-
-    public function setPlainPassword($plainPassword)
-    {
-        $this->plainPassword = $plainPassword;
-        $this->password = null;
     }
 
     public function getEmployee()

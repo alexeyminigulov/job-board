@@ -28,9 +28,9 @@ class Employee
      */
     private $user;
 
-    public function __construct(Data $data)
+    public function __construct(string $username, string $email, string $password)
     {
-        $user = new User($data->username, $data->email, $data->password, Role::ROLE_EMPLOYEE);
+        $user = new User($username, $email, $password, Role::ROLE_EMPLOYEE);
         $this->user = $user;
     }
 

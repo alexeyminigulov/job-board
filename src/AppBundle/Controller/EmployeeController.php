@@ -46,9 +46,8 @@ class EmployeeController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $employee = new Employee($data);
             try {
-                $this->service->singup($employee);
+                $employee = $this->service->singup($data);
                 $this->addFlash('success', 'Welcome ' .$employee->getUser()->getEmail());
                 return $this->authenticatorHandler->authenticateUserAndHandleSuccess(
                     $employee->getUser(),
