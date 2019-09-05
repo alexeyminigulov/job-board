@@ -2,10 +2,13 @@
 
 namespace AppBundle\Services;
 
+use AppBundle\Entity\Company;
 use AppBundle\Entity\Employer;
 use AppBundle\Entity\Job;
+use AppBundle\Form\Job\Data as JobData;
 use Doctrine\ORM\EntityManagerInterface;
 use AppBundle\Repository\UserRepository;
+use AppBundle\Form\EmployerSignup\Data as SingupData;
 
 class EmployerService
 {
@@ -26,21 +29,29 @@ class EmployerService
     }
 
     /**
-     * @param Employer $employer
+     * @param SingupData $data
      * @throws \Exception
+     * @return Employer
      */
-    public function singup(Employer $employer)
+    public function singup(SingupData $data): Employer
     {
-        if ($this->repository->findByEmail($employer->getUser()->getEmail())) {
+        if ($this->repository->findByEmail($data->user->email)) {
             throw new \Exception('Another employee with the same email already exists.');
         }
+
+        $employer = new Employer($data);
         $this->em->persist($employer);
         $this->em->flush();
+
+        return $employer;
     }
 
-    public function addJob(Job $job)
+    public function addJob(JobData $data, Company $company): Job
     {
+        $job = new Job($data, $company);
         $this->em->persist($job);
         $this->em->flush();
+
+        return $job;
     }
 }

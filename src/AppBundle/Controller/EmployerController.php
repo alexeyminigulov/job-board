@@ -2,8 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Employer;
-use AppBundle\Entity\Job;
 use AppBundle\Form\EmployerSignup\Form;
 use AppBundle\Form\Job\Form as JobForm;
 use AppBundle\Form\EmployerSignup\Data;
@@ -45,9 +43,8 @@ class EmployerController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $employer = new Employer($data);
             try {
-                $this->service->singup($employer);
+                $employer = $this->service->singup($data);
                 $this->addFlash('success', 'Welcome ' .$employer->getUser()->getEmail());
 
                 return $this->authenticatorHandler->authenticateUserAndHandleSuccess(
@@ -73,7 +70,7 @@ class EmployerController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function resumeAction(Request $request)
+    public function createJobAction(Request $request)
     {
         $company = $this->tokenStorage
             ->getToken()
@@ -85,9 +82,7 @@ class EmployerController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $job = new Job($data, $company);
-            $this->service->addJob($job);
+            $job = $this->service->addJob($data, $company);
             $this->addFlash('success', 'Job ' .$job->getName().' has been created.');
             return $this->redirectToRoute('homepage');
         }
