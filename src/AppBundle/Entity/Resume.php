@@ -47,12 +47,12 @@ class Resume
      */
     private $employee;
 
-    public function __construct(Data $data, Employee $employee)
+    public function __construct(string $name, string $description, int $salary, Employee $employee)
     {
-        $this->name = $data->name;
-        $this->description = $data->description;
+        $this->name = $name;
+        $this->description = $description;
         $this->isPublished = self::STATUS_DRAFT;
-        $this->salary = (int)$data->salary;
+        $this->salary = $salary;
         $this->employee = $employee;
     }
 

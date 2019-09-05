@@ -2,8 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Employee;
-use AppBundle\Entity\Resume;
 use AppBundle\Form\EmployeeSignup\Data;
 use AppBundle\Form\Resume\Form as ResumeForm;
 use AppBundle\Form\Resume\Data as ResumeData;
@@ -69,6 +67,8 @@ class EmployeeController extends Controller
     /**
      * @Route("/employee/resume", name="employee_resume")
      * @IsGranted("ROLE_EMPLOYEE")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function resumeAction(Request $request)
     {
@@ -81,8 +81,7 @@ class EmployeeController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $resume = new Resume($data, $employee);
-            $this->service->addResume($resume);
+            $this->service->addResume($data, $employee);
             $this->addFlash('success', 'Added resume.');
 
             return $this->redirectToRoute('homepage');

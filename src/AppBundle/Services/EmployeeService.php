@@ -8,6 +8,7 @@ use AppBundle\Form\EmployeeSignup\Data;
 use AppBundle\Security\PasswordEncoder;
 use Doctrine\ORM\EntityManagerInterface;
 use AppBundle\Repository\UserRepository;
+use AppBundle\Form\Resume\Data as ResumeData;
 
 class EmployeeService
 {
@@ -58,9 +59,12 @@ class EmployeeService
         return $employee;
     }
 
-    public function addResume(Resume $resume): void
+    public function addResume(ResumeData $data, Employee $employee): Resume
     {
+        $resume = new Resume($data->name, $data->description, $data->salary, $employee);
         $this->em->persist($resume);
         $this->em->flush();
+
+        return $resume;
     }
 }
