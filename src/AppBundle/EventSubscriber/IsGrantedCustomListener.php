@@ -4,13 +4,11 @@ namespace AppBundle\EventSubscriber;
 
 use Symfony\Component\HttpKernel\KernelEvents;
 use AppBundle\Security\User\AuthorizationChecker;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Sensio\Bundle\FrameworkExtraBundle\Request\ArgumentNameConverter;
+use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\HttpKernel\Event\FilterControllerArgumentsEvent;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Handles the IsGranted annotation on controllers.
@@ -20,14 +18,19 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class IsGrantedCustomListener implements EventSubscriberInterface
 {
     private $authChecker;
+    private $tokenStorage;
 
-    public function __construct(AuthorizationChecker $authChecker = null)
+    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationChecker $authChecker = null)
     {
+        $this->tokenStorage = $tokenStorage;
         $this->authChecker = $authChecker;
     }
 
     public function onKernelControllerArguments(FilterControllerArgumentsEvent $event)
     {
+        if ($this->tokenStorage->getToken() instanceof AnonymousToken) {
+            return;
+        }
         $request = $event->getRequest();
         /** @var $configurations IsGranted[] */
         if (!$configurations = $request->attributes->get('_is_granted')) {

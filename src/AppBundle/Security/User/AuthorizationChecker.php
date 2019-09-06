@@ -66,11 +66,17 @@ class AuthorizationChecker implements AuthorizationCheckerInterface
     {
         $grant = array_shift($attributes);
 
-        if (in_array($grant, $token->getUser()->getRoles()) && empty($token->getUser()->getEmployee())) {
+        if ($grant == Role::ROLE_EMPLOYEE
+            && in_array($grant, $token->getUser()->getRoles())
+            && empty($token->getUser()->getEmployee())
+        ) {
             $message = sprintf('For role @IsGranted(%s) don\'t exist entity Employee', $grant);
             throw new AccessDeniedException($message);
         }
-        else if (in_array($grant, $token->getUser()->getRoles()) && empty($token->getUser()->getEmployer())) {
+        else if ($grant == Role::ROLE_EMPLOYER
+            && in_array($grant, $token->getUser()->getRoles())
+            && empty($token->getUser()->getEmployer())
+        ) {
             $message = sprintf('For role @IsGranted(%s) don\'t exist entity Employer', $grant);
             throw new AccessDeniedException($message);
         }
