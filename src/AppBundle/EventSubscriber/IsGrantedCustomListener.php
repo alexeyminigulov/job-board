@@ -6,8 +6,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use AppBundle\Security\User\AuthorizationChecker;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
+use Symfony\Component\Security\Guard\Token\GuardTokenInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerArgumentsEvent;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
@@ -28,9 +29,11 @@ class IsGrantedCustomListener implements EventSubscriberInterface
 
     public function onKernelControllerArguments(FilterControllerArgumentsEvent $event)
     {
-        if ($this->tokenStorage->getToken() instanceof AnonymousToken) {
+        $token = $this->tokenStorage->getToken();
+        if (isset($token) && !$this->isTokenAuthenticated($token)) {
             return;
         }
+
         $request = $event->getRequest();
         /** @var $configurations IsGranted[] */
         if (!$configurations = $request->attributes->get('_is_granted')) {
@@ -52,5 +55,10 @@ class IsGrantedCustomListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [KernelEvents::CONTROLLER_ARGUMENTS => 'onKernelControllerArguments'];
+    }
+
+    private function isTokenAuthenticated(TokenInterface $token): bool
+    {
+        return $token instanceof GuardTokenInterface;
     }
 }

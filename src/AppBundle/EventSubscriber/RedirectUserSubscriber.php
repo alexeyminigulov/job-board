@@ -28,9 +28,9 @@ class RedirectUserSubscriber implements EventSubscriberInterface
 
     public function onKernelControllerArguments(GetResponseEvent $event)
     {
-        if ($this->isUserLogged() && $event->isMasterRequest()) {
-            $currentRoute = $event->getRequest()->attributes->get('_route');
-            if ($this->isAuthenticatedUserOnAnonymousPage($currentRoute)) {
+        $currentRoute = $event->getRequest()->attributes->get('_route');
+        if ($this->isAuthenticatedUserOnAnonymousPage($currentRoute)) {
+            if ($this->isUserLogged() && $event->isMasterRequest()) {
                 $response = new RedirectResponse($this->router->generate('homepage'));
                 $event->setResponse($response);
             }
