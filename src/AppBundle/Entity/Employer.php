@@ -35,15 +35,15 @@ class Employer
      */
     private $company;
 
-    public function __construct(Data $data)
+    public function __construct($userName, $email, $password, $companyName, $description)
     {
         $this->user = new User(
-            $data->user->username,
-            $data->user->email,
-            $data->user->password,
+            $userName,
+            $email,
+            $password,
             Role::ROLE_EMPLOYER
         );
-        $this->company = new Company($data->company->name, $data->company->description);
+        $this->company = new Company($companyName, $description);
     }
 
     public function getId()

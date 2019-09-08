@@ -3,6 +3,8 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Employee;
+use AppBundle\Entity\Employer;
+use AppBundle\Form\EmployerSignup\Data;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -30,6 +32,23 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
         ],
     ];
 
+    private $employers = [
+        0 => [
+            'username' => 'employer',
+            'email' => 'employer@mail.ru',
+            'password' => '$2y$10$ZSidBK3orwsjqBaNtqh1MeSF9/8YdwBckDYHgfMOG9m6bwncwX5Eu',
+            'companyName' => 'Apple',
+            'description' => 'It is a big company',
+        ],
+        1 => [
+            'username' => 'blintz',
+            'email' => 'blintz@mail.ru',
+            'password' => '$2y$10$ZSidBK3orwsjqBaNtqh1MeSF9/8YdwBckDYHgfMOG9m6bwncwX5Eu',
+            'companyName' => 'Pear',
+            'description' => 'It is a big company',
+        ],
+    ];
+
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
@@ -45,6 +64,18 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
             );
             $manager->persist($employee);
         }
+
+        foreach ($this->employers as $key => $data) {
+            $employer = new Employer(
+                $data['username'],
+                $data['email'],
+                $data['password'],
+                $data['companyName'],
+                $data['description']
+            );
+            $manager->persist($employer);
+        }
+
         $manager->flush();
     }
 }

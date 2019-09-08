@@ -39,7 +39,13 @@ class EmployerService
             throw new \Exception('Another employee with the same email already exists.');
         }
 
-        $employer = new Employer($data);
+        $employer = new Employer(
+            $data->user->username,
+            $data->user->email,
+            $data->user->password,
+            $data->company->name,
+            $data->company->description
+        );
         $this->em->persist($employer);
         $this->em->flush();
 
