@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\EventSubscriber;
+namespace AppBundle\EventSubscriber\Twig;
 
 use AppBundle\Form\SearchForm;
 use Symfony\Component\HttpKernel\KernelEvents;

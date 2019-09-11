@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\EventSubscriber;
+namespace AppBundle\EventSubscriber\Twig;
 
 use AppBundle\Entity\User\User;
 use Symfony\Component\HttpKernel\KernelEvents;
