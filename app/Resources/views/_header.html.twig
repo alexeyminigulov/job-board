@@ -43,8 +43,12 @@
             </div>
             <div class="col-2 text-right">
                 {% if is_granted('ROLE_USER') %}
-                    <div class="head-alignment">
-                        <a class="text-white" href="{{ path('security_logout') }}">Выйти</a>
+                    <div class="profile-dropdown head-alignment">
+                        <a class="text-white" href="#">Profile</a>
+                        <div class="profile-dropdown__content text-left">
+                            <a class="profile-dropdown__button btn btn-light" href="#">{{ user.getUsername }}</a>
+                            <a class="profile-dropdown__button btn btn-light" href="{{ path('security_logout') }}">Выйти</a>
+                        </div>
                     </div>
                 {% else %}
                     <div class="login-dropdown head-alignment">
