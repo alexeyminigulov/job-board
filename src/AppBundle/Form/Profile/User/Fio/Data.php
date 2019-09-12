@@ -11,4 +11,9 @@ class Data
      * @Assert\NotBlank()
      */
     public $username;
+
+    public function __construct(string $name)
+    {
+        $this->username = $name;
+    }
 }

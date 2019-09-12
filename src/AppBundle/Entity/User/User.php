@@ -72,6 +72,11 @@ class User implements UserInterface
         }
     }
 
+    public function changeName($name)
+    {
+        $this->username = $name;
+    }
+
     public function getId()
     {
         return $this->id;
