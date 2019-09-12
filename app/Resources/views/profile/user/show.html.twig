@@ -1,0 +1,36 @@
+{% extends 'profile/layout.html.twig' %}
+
+{% block content %}
+    <div class="user-info list-group">
+        <div class="user-info__block list-group-item">
+            <div class="row">
+                <div class="user-info__field col-4">
+                    Name
+                </div>
+                <div class="user-info__record col-5">
+                    {{ user.getUsername }}
+                </div>
+                <div class="user-info__edit col-3">
+                    <a href="{{ path('profile_user_fio') }}">
+                        Изменить
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="user-info__block list-group-item">
+            <div class="row">
+                <div class="user-info__field col-4">
+                    Email
+                </div>
+                <div class="user-info__record col-5">
+                    {{ user.email }}
+                </div>
+                <div class="user-info__edit col-3">
+                    <a href="{{ path('profile_user_fio') }}">
+                        Изменить
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

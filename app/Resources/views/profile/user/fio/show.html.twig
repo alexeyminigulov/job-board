@@ -1,0 +1,16 @@
+{% extends 'profile/layout.html.twig' %}
+
+{% block content %}
+    <div class="profile-user-form">
+        {{ form_start(userFio) }}
+        {{ form_errors(userFio) }}
+        <div class="form-group">
+            {{ form_label(userFio.username) }}
+            {{ form_widget(userFio.username, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(userFio.username) }}
+        </div>
+        <button type="submit" class="submit-login btn btn-primary">Сохранить</button>
+        <a class="btn btn-light" href="{{ path('show_profile') }}">Отмена</a>
+        {{ form_end(userFio) }}
+    </div>
+{% endblock %}
